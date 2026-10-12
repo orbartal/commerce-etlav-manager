@@ -93,8 +93,8 @@ Recommended reading:
 | 2.3 | Complete System | [2.3 Complete System](#23-complete-system) |
 | 2.4 | Security Extension | [2.9 Security Boundary](#29-security-boundary) |
 | 2.5 | Docker Architecture | [2.12 Dockers Architecture](#212-docker-architecture) |
-| 2.6 | Docker Communication by Trigger | [2.13 Dockers API Trigger](#213-docker-api-trigger) |
-| 2.6 | Docker Communication by protocol | [2.14 Dockers API Protocol](#214-docker-api-protocol) |
+| 2.6 | Docker Communication by Trigger | [2.13 Dockers API Trigger](#213-docker-communication-by-trigger) |
+| 2.6 | Docker Communication by protocol | [2.14 Dockers API Protocol](#214-docker-communication-by-protocol) |
 | 3.1 | Test Flow | [3.9 Running Tests](#39-running-tests) |
 | 4.1 | Development Lifecycle | [4.2 Development Lifecycle](#42-development-lifecycle) |
 | 4.2 | Tenant Test Flow | [4.4 Testing Strategy](#44-testing-strategy) |
@@ -111,8 +111,8 @@ Recommended reading:
 | 2.3 | Technology Stack | [2.7 Technology Stack](#27-technology-stack) |
 | 2.4 | Running Services | [2.8 Running Services](#28-running-services) |
 | 2.5 | Docker Architecture | [2.12 Docker Architecture](#212-docker-architecture) |
-| 2.6 | Docker API by trigger | [2.13 Docker API by trigger](#213-docker-api-trigger) |
-| 2.7 | Docker API by protocol | [2.14 Docker API by protocol](#214-docker-api-protocol) |
+| 2.6 | Docker Communication by trigger | [2.13 Docker Communication by trigger](#213-docker-communication-by-trigger) |
+| 2.7 | Docker Communication by protocol | [2.14 Docker Communication by protocol](#214-docker-communication-by-protocol) |
 | 4.1 | Project Status | [4.5 Project Status](#45-project-status) |
 | 4.2 | Project Roadmap | [4.6 Project Roadmap](#46-project-roadmap) |
 | 4.3 | Repository Responsibilities | [4.7 Repository Responsibilities](#47-repository-responsibilities) |
