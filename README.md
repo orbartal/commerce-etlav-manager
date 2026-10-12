@@ -93,7 +93,8 @@ Recommended reading:
 | 2.3 | Complete System | [2.3 Complete System](#23-complete-system) |
 | 2.4 | Security Extension | [2.9 Security Boundary](#29-security-boundary) |
 | 2.5 | Docker Architecture | [2.11 Dockers Architecture](#211-docker-architecture) |
-| 2.6 | Docker Communication by Trigger | [2.11 Dockers Trigger](#211-docker-trigger) |
+| 2.6 | Docker Communication by Trigger | [2.11 Dockers API Trigger](#211-docker-api-trigger) |
+| 2.6 | Docker Communication by protocol | [2.11 Dockers API Protocol](#211-docker-api-protocol) |
 | 3.1 | Test Flow | [3.9 Running Tests](#39-running-tests) |
 | 4.1 | Development Lifecycle | [4.2 Development Lifecycle](#42-development-lifecycle) |
 | 4.2 | Tenant Test Flow | [4.4 Testing Strategy](#44-testing-strategy) |
@@ -109,7 +110,9 @@ Recommended reading:
 | 2.2 | Infrastructure Services | [2.5 Infrastructure Services](#25-infrastructure-services) |
 | 2.3 | Technology Stack | [2.7 Technology Stack](#27-technology-stack) |
 | 2.4 | Running Services | [2.8 Running Services](#28-running-services) |
-| 2.4 | Docker Communications | [2.11 Docker Communications](#29-docker-cmmunications) |
+| 2.5 | Docker Architecture | [2.11 Docker Architecture](#29-docker-architecture) |
+| 2.6 | Docker API by trigger | [2.11 Docker API by trigger](#211-docker-api-by-trigger) |
+| 2.7 | Docker API by protocol | [2.11 Docker API by protocol](#211-docker-api-by-protocol) |
 | 4.1 | Project Status | [4.5 Project Status](#45-project-status) |
 | 4.2 | Project Roadmap | [4.6 Project Roadmap](#46-project-roadmap) |
 | 4.3 | Repository Responsibilities | [4.7 Repository Responsibilities](#47-repository-responsibilities) |
@@ -1115,6 +1118,200 @@ The same applies to internal Trino connections, which are gray because they serv
 The diagram uses Mermaid edge IDs (e1@-->) and edge classes to color individual connections.
 This requires a Mermaid version supporting edge IDs and edge classes.
 If your GitHub renderer does not support them, we can use linkStyle with numbered edge indexes instead.
+
+### Diagram 2.7 — Docker Communication by Protocol
+
+This diagram shows communication between the 19 Docker containers.
+
+- All containers use the same neutral color.
+- Communication lines are colored by network protocol.
+- Colors do not represent triggers, business purposes, or AI usage.
+- Spark Submission is marked TBD until its protocol is selected.
+
+```mermaid
+flowchart TB
+
+    %% ==========================================
+    %% COMMERCE ETLAV - DOCKER COMMUNICATION
+    %% 19 containers, 32 communication links
+    %% ==========================================
+
+    subgraph SYSTEM["CommerceETLAV - Docker Compose"]
+        direction TB
+
+        subgraph INGEST["Data Generation and Ingestion"]
+            direction LR
+            generator["generator"]
+            kafka["kafka"]
+            ingestor["ingestor"]
+            minio["minio"]
+        end
+
+        subgraph PROCESS["Processing and Lakehouse"]
+            direction LR
+            analyzer["analyzer"]
+            spark["spark"]
+            catalog["iceberg-catalog"]
+        end
+
+        subgraph ANALYTICS["Analytics and AI/ML"]
+            direction LR
+            trino["trino"]
+            thinker["thinker"]
+        end
+
+        subgraph PRESENTATION["API and Visualization"]
+            direction LR
+            presenter["presenter"]
+            website["website"]
+            superset["superset"]
+        end
+
+        subgraph ORCHESTRATION["Workflow Orchestration"]
+            direction LR
+            airflow["airflow"]
+            postgres["postgres"]
+        end
+
+        subgraph OBSERVABILITY["Monitoring and Observability"]
+            direction LR
+            prometheus["prometheus"]
+            grafana["grafana"]
+        end
+
+        subgraph INITIALIZATION["Initialization - Run Once"]
+            direction LR
+            airflow_init["airflow-init"]
+            minio_init["minio-init"]
+        end
+    end
+
+    subgraph TESTING["External Testing - On Demand"]
+        tester["tester"]
+    end
+
+    %% ==========================================
+    %% HTTP / HTTPS - BLUE
+    %% ==========================================
+
+    website e1@-->|REST API| presenter
+    presenter e2@-->|Start generation| generator
+    presenter e3@-->|Trigger processing| analyzer
+    presenter e4@-->|SQL over HTTP| trino
+    superset e5@-->|SQL over HTTP| trino
+
+    tester e6@-->|REST E2E tests| presenter
+    tester e7@-->|Generator tests| generator
+    tester e8@-->|Browser HTTP| website
+
+    presenter e9@-->|AI/ML request| thinker
+    thinker e10@-->|SQL over HTTP| trino
+
+    ingestor e13@-->|S3 API| minio
+
+    spark e16@<-->|S3 API| minio
+    spark e17@-->|Catalog API| catalog
+
+    catalog e18@-->|S3 API| minio
+    trino e19@-->|Catalog API| catalog
+    trino e20@-->|S3 API| minio
+
+    airflow e14@-->|REST API| analyzer
+
+    prometheus e23@-.->|HTTP metrics| generator
+    prometheus e24@-.->|HTTP metrics| ingestor
+    prometheus e25@-.->|HTTP metrics| analyzer
+    prometheus e26@-.->|HTTP metrics| thinker
+    prometheus e27@-.->|HTTP metrics| presenter
+    prometheus e28@-.->|HTTP metrics| kafka
+    prometheus e29@-.->|HTTP metrics| spark
+    grafana e30@-->|Prometheus HTTP API| prometheus
+
+    minio_init e32@-->|S3 API| minio
+
+    %% ==========================================
+    %% KAFKA PROTOCOL - GREEN
+    %% ==========================================
+
+    generator e11@-->|Publish events| kafka
+    kafka e12@-->|Consume events| ingestor
+
+    %% ==========================================
+    %% POSTGRESQL PROTOCOL - PURPLE
+    %% ==========================================
+
+    airflow e21@-->|PostgreSQL| postgres
+    superset e22@-->|PostgreSQL| postgres
+    airflow_init e31@-->|PostgreSQL| postgres
+
+    %% ==========================================
+    %% SPARK SUBMISSION - ORANGE (TBD)
+    %% ==========================================
+
+    analyzer e15@-->|Spark Submission TBD| spark
+
+    %% ==========================================
+    %% CONTAINER STYLE - NEUTRAL
+    %% ==========================================
+
+    classDef container fill:#F8FAFC,stroke:#334155,color:#0F172A,stroke-width:1.5px
+
+    class generator,kafka,ingestor,minio container
+    class analyzer,spark,catalog container
+    class trino,thinker container
+    class presenter,website,superset container
+    class airflow,postgres container
+    class prometheus,grafana container
+    class airflow_init,minio_init,tester container
+
+    %% ==========================================
+    %% PROTOCOL EDGE COLORS
+    %% ==========================================
+
+    classDef httpEdge stroke:#2563EB,stroke-width:2.5px,color:#2563EB
+    classDef kafkaEdge stroke:#059669,stroke-width:2.5px,color:#059669
+    classDef postgresEdge stroke:#7C3AED,stroke-width:2.5px,color:#7C3AED
+    classDef sparkEdge stroke:#EA580C,stroke-width:2.5px,color:#EA580C
+
+    class e1,e2,e3,e4,e5,e6,e7,e8,e9,e10,e13,e14,e16,e17,e18,e19,e20,e23,e24,e25,e26,e27,e28,e29,e30,e32 httpEdge
+    class e11,e12 kafkaEdge
+    class e21,e22,e31 postgresEdge
+    class e15 sparkEdge
+```
+
+#### Communication Color Legend
+
+| Color | Protocol Category | Connections | Description |
+|---|---|---:|---|
+| 🔵 Blue | HTTP / HTTPS | 26 | REST, S3 API, SQL over HTTP, metrics, browser requests |
+| 🟢 Green | Kafka Protocol | 2 | Event publishing and consumption |
+| 🟣 Purple | PostgreSQL Protocol | 3 | Database connections using PostgreSQL wire protocol |
+| 🟠 Orange | Spark Submission (TBD) | 1 | Analyzer-to-Spark job submission; protocol not yet selected |
+| **Total** | | **32** | |
+
+#### Communication Notes
+
+1. **Protocol classification:** Colors represent the underlying communication protocol, not the business operation.
+
+2. **HTTP / HTTPS:** REST APIs, S3-compatible APIs, Trino SQL requests, and Prometheus metrics use HTTP-based communication.
+
+3. **Kafka:** Generator publishes events to Kafka. Ingestor consumes events using Kafka's native protocol.
+
+4. **PostgreSQL:** Airflow and Superset communicate with PostgreSQL using the PostgreSQL wire protocol.
+
+5. **Spark Submission:** The Analyzer-to-Spark submission mechanism remains undecided. It may use Spark APIs or another supported submission interface.
+
+6. **Selenium:** Browser traffic uses HTTP / HTTPS. WebDriver control may use HTTP separately, but it is not represented as an additional Docker communication link.
+
+7. **Metrics:** Prometheus normally pulls metrics through HTTP endpoints. Exporters or application instrumentation may be required.
+
+8. **Iceberg Catalog:** The diagram assumes an HTTP-based catalog API. The exact catalog implementation must support this interface.
+
+9. **Bidirectional arrows:** Spark and MinIO exchange data through S3-compatible API operations. This does not imply a persistent bidirectional connection.
+
+10. **Container boundaries:** Each node represents one Docker container. Manager is excluded because it is not a running container.
+
+11. **Protocol assumptions:** The diagram represents the planned communication design. Exact protocols and endpoints must be validated during implementation.
 
 
 ---
