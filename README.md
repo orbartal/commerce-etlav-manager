@@ -92,9 +92,9 @@ Recommended reading:
 | 2.2 | Analysis Flow | [2.2 Analysis Flow](#22-analysis-flow) |
 | 2.3 | Complete System | [2.3 Complete System](#23-complete-system) |
 | 2.4 | Security Extension | [2.9 Security Boundary](#29-security-boundary) |
-| 2.5 | Docker Architecture | [2.11 Dockers Architecture](#211-docker-architecture) |
-| 2.6 | Docker Communication by Trigger | [2.11 Dockers API Trigger](#211-docker-api-trigger) |
-| 2.6 | Docker Communication by protocol | [2.11 Dockers API Protocol](#211-docker-api-protocol) |
+| 2.5 | Docker Architecture | [2.12 Dockers Architecture](#212-docker-architecture) |
+| 2.6 | Docker Communication by Trigger | [2.13 Dockers API Trigger](#213-docker-api-trigger) |
+| 2.6 | Docker Communication by protocol | [2.14 Dockers API Protocol](#214-docker-api-protocol) |
 | 3.1 | Test Flow | [3.9 Running Tests](#39-running-tests) |
 | 4.1 | Development Lifecycle | [4.2 Development Lifecycle](#42-development-lifecycle) |
 | 4.2 | Tenant Test Flow | [4.4 Testing Strategy](#44-testing-strategy) |
@@ -110,9 +110,9 @@ Recommended reading:
 | 2.2 | Infrastructure Services | [2.5 Infrastructure Services](#25-infrastructure-services) |
 | 2.3 | Technology Stack | [2.7 Technology Stack](#27-technology-stack) |
 | 2.4 | Running Services | [2.8 Running Services](#28-running-services) |
-| 2.5 | Docker Architecture | [2.11 Docker Architecture](#29-docker-architecture) |
-| 2.6 | Docker API by trigger | [2.11 Docker API by trigger](#211-docker-api-by-trigger) |
-| 2.7 | Docker API by protocol | [2.11 Docker API by protocol](#211-docker-api-by-protocol) |
+| 2.5 | Docker Architecture | [2.12 Docker Architecture](#212-docker-architecture) |
+| 2.6 | Docker API by trigger | [2.13 Docker API by trigger](#213-docker-api-trigger) |
+| 2.7 | Docker API by protocol | [2.14 Docker API by protocol](#214-docker-api-protocol) |
 | 4.1 | Project Status | [4.5 Project Status](#45-project-status) |
 | 4.2 | Project Roadmap | [4.6 Project Roadmap](#46-project-roadmap) |
 | 4.3 | Repository Responsibilities | [4.7 Repository Responsibilities](#47-repository-responsibilities) |
@@ -761,6 +761,9 @@ The following decisions should be finalized during implementation:
 
 The objective is to preserve a simple, understandable, and runnable Docker Compose environment while demonstrating the complete Big Data and AI/ML architecture.
 
+
+## 2.12 Docker Architecture
+
 **Diagram 2.5 — Docker Architecture**
 
 ```mermaid
@@ -930,6 +933,8 @@ Architecture Notes
 - The Analyzer-to-Spark connection represents the proposed architecture.
 - Prometheus connections show representative metrics targets, not every possible target.
 
+
+## 2.13 Docker Communication by Trigger
 
 **Diagram 2.6 — Docker Communication by Trigger**
 
@@ -1118,6 +1123,8 @@ The same applies to internal Trino connections, which are gray because they serv
 The diagram uses Mermaid edge IDs (e1@-->) and edge classes to color individual connections.
 This requires a Mermaid version supporting edge IDs and edge classes.
 If your GitHub renderer does not support them, we can use linkStyle with numbered edge indexes instead.
+
+## 2.14 Docker Communication by Protocol
 
 ### Diagram 2.7 — Docker Communication by Protocol
 
