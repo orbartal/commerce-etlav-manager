@@ -916,13 +916,14 @@ flowchart TB
     class airflow_init,minio_init initialization
 ```
 
+#### Diagram 2.5 Color Legend
 
-Color Legend
-- Blue: Application — 6 continuously running containers
-- Gray: Infrastructure — 10 continuously running containers
-- Orenge: Tester — 1 on-demand container
-- Green: Initialization — 2 one-time containers
-
+| Color | Category |  instances | When Running |
+|---|---|---|---|
+| 🔵 Blue | Application | 6 | continuously running containers |
+| ⚪ Gray | Infrastructure | 10 | continuously running containers |
+| 🟠 Orenge  | Tester | 1 |  on-demand container |
+| 🟢 Green | Initialization | 2 | one-time containers |
 
 Architecture Notes
 - Every node represents exactly one Docker container.
@@ -1097,9 +1098,7 @@ flowchart TB
     class e31,e32 initEdge
 ```
 
-### Diagram 2.6 Notes
-
-**Diagram 2.6 — Communication Color Legend**
+#### Diagram 2.6 Color Legend
 
 | Color | Trigger Category | Meaning |
 |---|---|---|
@@ -1286,7 +1285,7 @@ flowchart TB
     class e15 sparkEdge
 ```
 
-#### Communication Color Legend
+#### Diagram 2.7 Color Legend
 
 | Color | Protocol Category | Connections | Description |
 |---|---|---:|---|
