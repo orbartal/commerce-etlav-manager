@@ -92,6 +92,8 @@ Recommended reading:
 | 2.2 | Analysis Flow | [2.2 Analysis Flow](#22-analysis-flow) |
 | 2.3 | Complete System | [2.3 Complete System](#23-complete-system) |
 | 2.4 | Security Extension | [2.9 Security Boundary](#29-security-boundary) |
+| 2.5 | Docker Architecture | [2.11 Dockers Architecture](#211-docker-architecture) |
+| 2.6 | Docker Communication by Trigger | [2.11 Dockers Trigger](#211-docker-trigger) |
 | 3.1 | Test Flow | [3.9 Running Tests](#39-running-tests) |
 | 4.1 | Development Lifecycle | [4.2 Development Lifecycle](#42-development-lifecycle) |
 | 4.2 | Tenant Test Flow | [4.4 Testing Strategy](#44-testing-strategy) |
@@ -107,6 +109,7 @@ Recommended reading:
 | 2.2 | Infrastructure Services | [2.5 Infrastructure Services](#25-infrastructure-services) |
 | 2.3 | Technology Stack | [2.7 Technology Stack](#27-technology-stack) |
 | 2.4 | Running Services | [2.8 Running Services](#28-running-services) |
+| 2.4 | Docker Communications | [2.11 Docker Communications](#29-docker-cmmunications) |
 | 4.1 | Project Status | [4.5 Project Status](#45-project-status) |
 | 4.2 | Project Roadmap | [4.6 Project Roadmap](#46-project-roadmap) |
 | 4.3 | Repository Responsibilities | [4.7 Repository Responsibilities](#47-repository-responsibilities) |
@@ -754,6 +757,365 @@ The following decisions should be finalized during implementation:
 - **Resource Limits** — memory and CPU allocation for a practical single-machine demonstration.
 
 The objective is to preserve a simple, understandable, and runnable Docker Compose environment while demonstrating the complete Big Data and AI/ML architecture.
+
+**Diagram 2.5 — Docker Architecture**
+
+```mermaid
+flowchart TB
+
+    %% ==========================================
+    %% COMMERCE ETLAV - DOCKER ARCHITECTURE
+    %% 19 containers
+    %% ==========================================
+
+    subgraph SYSTEM["CommerceETLAV - Docker Compose"]
+
+        direction TB
+
+        subgraph INGEST["Data Generation and Ingestion"]
+            direction LR
+            generator["generator"]
+            kafka["kafka"]
+            ingestor["ingestor"]
+            minio["minio"]
+        end
+
+        subgraph PROCESS["Processing and Lakehouse"]
+            direction LR
+            analyzer["analyzer"]
+            spark["spark"]
+            catalog["iceberg-catalog"]
+        end
+
+        subgraph ANALYTICS["Analytics and AI/ML"]
+            direction LR
+            trino["trino"]
+            thinker["thinker"]
+        end
+
+        subgraph PRESENTATION["API and Visualization"]
+            direction LR
+            presenter["presenter"]
+            website["website"]
+            superset["superset"]
+        end
+
+        subgraph ORCHESTRATION["Workflow Orchestration"]
+            direction LR
+            airflow["airflow"]
+            postgres["postgres"]
+        end
+
+        subgraph OBSERVABILITY["Monitoring and Observability"]
+            direction LR
+            prometheus["prometheus"]
+            grafana["grafana"]
+        end
+
+        subgraph INITIALIZATION["Initialization - Run Once"]
+            direction LR
+            airflow_init["airflow-init"]
+            minio_init["minio-init"]
+        end
+    end
+
+    subgraph TESTING["External Testing - On Demand"]
+        tester["tester"]
+    end
+
+    %% ==========================================
+    %% DATA GENERATION AND INGESTION
+    %% ==========================================
+
+    generator -->|Publish events| kafka
+    kafka -->|Consume events| ingestor
+    ingestor -->|Write raw data| minio
+
+    %% ==========================================
+    %% DATA PROCESSING
+    %% ==========================================
+
+    analyzer -->|Submit ETL jobs| spark
+    spark <-->|Read and write data| minio
+    spark -->|Table metadata| catalog
+    catalog -->|Object storage| minio
+
+    %% ==========================================
+    %% ANALYTICS
+    %% ==========================================
+
+    trino -->|Table metadata| catalog
+    trino -->|Read Parquet data| minio
+    thinker -->|SQL queries| trino
+
+    %% ==========================================
+    %% API AND VISUALIZATION
+    %% ==========================================
+
+    website -->|REST API| presenter
+    presenter -->|Generate data| generator
+    presenter -->|Trigger processing| analyzer
+    presenter -->|SQL analytics| trino
+    presenter -->|AI/ML insights| thinker
+    superset -->|SQL queries| trino
+
+    %% ==========================================
+    %% ORCHESTRATION AND METADATA
+    %% ==========================================
+
+    airflow -->|Trigger workflows| analyzer
+    airflow -->|Metadata| postgres
+    superset -->|Metadata| postgres
+
+    %% ==========================================
+    %% OBSERVABILITY
+    %% ==========================================
+
+    prometheus -.->|Scrape metrics| generator
+    prometheus -.->|Scrape metrics| ingestor
+    prometheus -.->|Scrape metrics| analyzer
+    prometheus -.->|Scrape metrics| thinker
+    prometheus -.->|Scrape metrics| presenter
+    prometheus -.->|Infrastructure metrics| kafka
+    prometheus -.->|Infrastructure metrics| spark
+    grafana -->|Query metrics| prometheus
+
+    %% ==========================================
+    %% INITIALIZATION
+    %% ==========================================
+
+    airflow_init -->|Initialize database| postgres
+    minio_init -->|Create buckets| minio
+
+    %% ==========================================
+    %% EXTERNAL TESTING
+    %% ==========================================
+
+    tester -->|REST E2E tests| presenter
+    tester -->|Early milestone tests| generator
+    tester -->|Selenium UI tests| website
+
+    %% ==========================================
+    %% CONTAINER COLORS
+    %% ==========================================
+
+    classDef application fill:#DBEAFE,stroke:#2563EB,color:#1E3A8A,stroke-width:2px
+    classDef infrastructure fill:#E5E7EB,stroke:#6B7280,color:#111827,stroke-width:2px
+    classDef testing fill:#FED7AA,stroke:#EA580C,color:#7C2D12,stroke-width:2px
+    classDef initialization fill:#D1FAE5,stroke:#059669,color:#065F46,stroke-width:2px
+
+    class generator,ingestor,analyzer,thinker,presenter,website application
+    class kafka,minio,spark,catalog,trino,airflow,superset,prometheus,grafana,postgres infrastructure
+    class tester testing
+    class airflow_init,minio_init initialization
+```
+
+
+Color Legend
+- Blue: Application — 6 continuously running containers
+- Gray: Infrastructure — 10 continuously running containers
+- Orenge: Tester — 1 on-demand container
+- Green: Initialization — 2 one-time containers
+
+
+Architecture Notes
+- Every node represents exactly one Docker container.
+- Solid arrows represent service communication.
+- Dashed arrows represent monitoring and metrics collection.
+- Tester is outside the main system boundary.
+- Manager, Parquet files, and Iceberg tables are not separate containers.
+- The Analyzer-to-Spark connection represents the proposed architecture.
+- Prometheus connections show representative metrics targets, not every possible target.
+
+
+**Diagram 2.6 — Docker Communication by Trigger**
+
+```mermaid
+flowchart TB
+
+    %% ==========================================
+    %% COMMERCE ETLAV - DOCKER COMMUNICATION
+    %% 19 containers, colored by trigger
+    %% ==========================================
+
+    subgraph SYSTEM["CommerceETLAV - Docker Compose"]
+        direction TB
+
+        subgraph INGEST["Data Generation and Ingestion"]
+            direction LR
+            generator["generator"]
+            kafka["kafka"]
+            ingestor["ingestor"]
+            minio["minio"]
+        end
+
+        subgraph PROCESS["Processing and Lakehouse"]
+            direction LR
+            analyzer["analyzer"]
+            spark["spark"]
+            catalog["iceberg-catalog"]
+        end
+
+        subgraph ANALYTICS["Analytics and AI/ML"]
+            direction LR
+            trino["trino"]
+            thinker["thinker"]
+        end
+
+        subgraph PRESENTATION["API and Visualization"]
+            direction LR
+            presenter["presenter"]
+            website["website"]
+            superset["superset"]
+        end
+
+        subgraph ORCHESTRATION["Workflow Orchestration"]
+            direction LR
+            airflow["airflow"]
+            postgres["postgres"]
+        end
+
+        subgraph OBSERVABILITY["Monitoring and Observability"]
+            direction LR
+            prometheus["prometheus"]
+            grafana["grafana"]
+        end
+
+        subgraph INITIALIZATION["Initialization - Run Once"]
+            direction LR
+            airflow_init["airflow-init"]
+            minio_init["minio-init"]
+        end
+    end
+
+    subgraph TESTING["External Testing - On Demand"]
+        tester["tester"]
+    end
+
+    %% ==========================================
+    %% USER REQUESTS - BLUE
+    %% ==========================================
+
+    website e1@-->|REST API| presenter
+    presenter e2@-->|Start generation| generator
+    presenter e3@-->|Trigger processing| analyzer
+    presenter e4@-->|SQL analytics| trino
+    superset e5@-->|SQL queries| trino
+    tester e6@-->|REST E2E tests| presenter
+    tester e7@-->|Generator tests| generator
+    tester e8@-->|Selenium UI tests| website
+
+    %% ==========================================
+    %% AI-ONLY QUERIES - ORANGE
+    %% ==========================================
+
+    presenter e9@-->|AI/ML request| thinker
+    thinker e10@-->|Analytical SQL| trino
+
+    %% ==========================================
+    %% INCOMING EVENTS - GREEN
+    %% ==========================================
+
+    generator e11@-->|Publish events| kafka
+    kafka e12@-->|Consume events| ingestor
+    ingestor e13@-->|Write raw data| minio
+
+    %% ==========================================
+    %% SCHEDULED JOBS - PURPLE
+    %% ==========================================
+
+    airflow e14@-->|Trigger ETL workflow| analyzer
+    analyzer e15@-->|Submit Spark job| spark
+    spark e16@<-->|Read/write lakehouse| minio
+    spark e17@-->|Iceberg metadata| catalog
+
+    %% ==========================================
+    %% SYSTEM OPERATIONS - GRAY
+    %% ==========================================
+
+    catalog e18@-->|Object storage| minio
+    trino e19@-->|Table metadata| catalog
+    trino e20@-->|Read Parquet| minio
+
+    airflow e21@-->|Metadata DB| postgres
+    superset e22@-->|Metadata DB| postgres
+
+    prometheus e23@-.->|Scrape metrics| generator
+    prometheus e24@-.->|Scrape metrics| ingestor
+    prometheus e25@-.->|Scrape metrics| analyzer
+    prometheus e26@-.->|Scrape metrics| thinker
+    prometheus e27@-.->|Scrape metrics| presenter
+    prometheus e28@-.->|Kafka metrics| kafka
+    prometheus e29@-.->|Spark metrics| spark
+    grafana e30@-->|Query metrics| prometheus
+
+    %% ==========================================
+    %% INITIALIZATION - BROWN
+    %% ==========================================
+
+    airflow_init e31@-->|Initialize database| postgres
+    minio_init e32@-->|Create buckets| minio
+
+    %% ==========================================
+    %% CONTAINER STYLE - NEUTRAL
+    %% ==========================================
+
+    classDef container fill:#F8FAFC,stroke:#334155,color:#0F172A,stroke-width:1.5px
+
+    class generator,kafka,ingestor,minio container
+    class analyzer,spark,catalog container
+    class trino,thinker container
+    class presenter,website,superset container
+    class airflow,postgres container
+    class prometheus,grafana container
+    class airflow_init,minio_init,tester container
+
+    %% ==========================================
+    %% EDGE COLORS - COMMUNICATION TRIGGERS
+    %% ==========================================
+
+    classDef userEdge stroke:#2563EB,stroke-width:2.5px,color:#2563EB
+    classDef eventEdge stroke:#059669,stroke-width:2.5px,color:#059669
+    classDef scheduledEdge stroke:#7C3AED,stroke-width:2.5px,color:#7C3AED
+    classDef systemEdge stroke:#64748B,stroke-width:2px,color:#64748B
+    classDef initEdge stroke:#92400E,stroke-width:2.5px,color:#92400E
+    classDef aiEdge stroke:#EA580C,stroke-width:2.5px,color:#EA580C
+
+    class e1,e2,e3,e4,e5,e6,e7,e8 userEdge
+    class e9,e10 aiEdge
+    class e11,e12,e13 eventEdge
+    class e14,e15,e16,e17 scheduledEdge
+    class e18,e19,e20,e21,e22,e23,e24,e25,e26,e27,e28,e29,e30 systemEdge
+    class e31,e32 initEdge
+```
+
+### Diagram 2.6 Notes
+
+**Diagram 2.6 — Communication Color Legend**
+
+| Color | Trigger Category | Meaning |
+|---|---|---|
+| 🔵 Blue | User Request | User-driven or shared AI/non-AI requests |
+| 🟢 Green | Incoming Event | Event-driven ingestion and processing |
+| 🟣 Purple | Scheduled Job | Scheduled ETL and orchestration |
+| ⚪ Gray | System Operation | Internal infrastructure and monitoring |
+| 🟤 Brown | Initialization | One-time setup operations |
+| 🟠 Orange | AI Query | Communication exclusively used for AI/ML |
+
+
+#### Diagram Notes
+There are 32 communication links between the 19 Docker containers.
+The colors represent the proposed primary trigger for each connection.
+One architectural detail is worth noting: Analyzer → Spark can also be initiated by a user request.
+Similarly, Spark → MinIO can occur during either scheduled or user-triggered processing.
+For readability, these shared connections are purple in this version, representing the scheduled ETL path.
+The same applies to internal Trino connections, which are gray because they serve multiple query types.
+
+#### Implementation Note
+The diagram uses Mermaid edge IDs (e1@-->) and edge classes to color individual connections.
+This requires a Mermaid version supporting edge IDs and edge classes.
+If your GitHub renderer does not support them, we can use linkStyle with numbered edge indexes instead.
+
 
 ---
 
