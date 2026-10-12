@@ -534,6 +534,227 @@ Structured fields support SQL and traditional analytics.
 
 Free-text fields support semantic AI/ML analysis.
 
+
+## 2.11 Docker Topology
+
+CommerceETLAV uses Docker Compose to run the complete platform locally.
+
+The proposed final architecture contains **19 Docker containers**:
+
+- **7 application containers** — CommerceETLAV microservices, Website, and Tester.
+- **12 infrastructure containers** — third-party services, metadata storage, and initialization utilities.
+
+Of these, **16 containers run continuously**, while **3 containers run only during initialization or testing**.
+
+The architecture is designed for a single-machine, non-production demonstration.
+
+The goals are:
+
+- Run the complete platform using one Docker Compose configuration.
+- Keep application services independently containerized.
+- Use established open-source infrastructure products.
+- Minimize unnecessary containers and operational complexity.
+- Make service dependencies and communication explicit.
+- Allow incremental development and integration.
+- Avoid production-specific complexity such as clustering, replication, and high availability.
+
+### Docker and Roles
+
+**Table — Docker and Roles**
+
+| # | Container | Application / Service | Role |
+|---:|---|---|---|
+| 1 | `generator` | Java / Spring Boot | Generate deterministic commerce events |
+| 2 | `ingestor` | Java / Spring Boot | Consume Kafka events and store raw data |
+| 3 | `analyzer` | Spark-based processing application | Transform, clean, aggregate, and write curated data |
+| 4 | `thinker` | Python / FastAPI | Perform AI/ML semantic analysis |
+| 5 | `presenter` | Java / Spring Boot | Provide the public REST API and application Gateway |
+| 6 | `website` | React / Web Server | Provide the user-facing interface |
+| 7 | `tester` | Java / Python + Selenium | Execute external black-box E2E tests |
+| 8 | `kafka` | Apache Kafka / KRaft | Provide the event streaming broker |
+| 9 | `minio` | MinIO | Provide S3-compatible object storage |
+| 10 | `spark` | Apache Spark | Execute distributed ETL jobs in local mode |
+| 11 | `iceberg-catalog` | Iceberg REST Catalog | Manage Iceberg table metadata |
+| 12 | `trino` | Trino | Query Iceberg tables using SQL |
+| 13 | `airflow` | Apache Airflow | Schedule and coordinate data workflows |
+| 14 | `superset` | Apache Superset | Provide BI dashboards and SQL visualization |
+| 15 | `prometheus` | Prometheus | Collect and store application and infrastructure metrics |
+| 16 | `grafana` | Grafana | Provide operational monitoring dashboards |
+| 17 | `postgres` | PostgreSQL | Store metadata for Airflow and Superset |
+| 18 | `airflow-init` | Airflow Initialization | Initialize and migrate the Airflow metadata database |
+| 19 | `minio-init` | MinIO Client | Initialize buckets and storage configuration |
+
+**Container Notes**
+
+1. **Manager Repository**
+   - `commerce-etlav-manager` is a GitHub repository, not a running container.
+   - It owns the main `docker-compose.yml`, infrastructure configuration, and maintenance scripts.
+
+2. **Application Containers**
+   - Each CommerceETLAV application repository owns its application code and Dockerfile.
+   - Application containers can be built and updated independently.
+
+3. **Tester Container**
+   - `tester` is an external black-box testing application.
+   - It runs on demand and exits when testing is complete.
+   - It validates the platform through documented public APIs and the Website.
+
+4. **Initialization Containers**
+   - `airflow-init` and `minio-init` execute during environment initialization.
+   - They exit after their initialization tasks finish successfully.
+
+5. **Data Components**
+   - Parquet is a physical file format.
+   - Apache Iceberg is a table format.
+   - Neither requires a dedicated processing container.
+   - The Iceberg REST Catalog is a separate service that manages table metadata.
+
+6. **Kafka**
+   - Kafka uses KRaft mode.
+   - A separate ZooKeeper container is not required.
+
+7. **Spark**
+   - Spark initially runs in local mode.
+   - Separate Spark worker containers are not required.
+   - The relationship between `analyzer` and `spark` will be finalized during implementation.
+
+8. **PostgreSQL**
+   - One PostgreSQL container supports both Airflow and Superset.
+   - Each application uses a separate database or schema.
+
+9. **Deployment Scope**
+   - The topology does not include production clustering, replication, or high availability.
+   - Additional exporters or supporting services may be introduced if required.
+
+10. **Container Count**
+    - The 19-container architecture is a proposed final topology.
+    - The actual count may change as implementation decisions are finalized.
+
+### Docker Communications
+
+Containers communicate through Docker Compose networking.
+
+Internal services should use Docker Compose service names rather than fixed container IP addresses.
+
+For example:
+
+```text
+kafka:9092
+minio:9000
+trino:8080
+thinker:8000
+presenter:8080
+```
+
+Only services that require access from a browser, developer machine, or external client should publish ports to the host.
+
+**Table — Docker Communications**
+
+| # | Source | Destination | Protocol | Purpose |
+|---:|---|---|---|---|
+| 1 | Generator | Kafka | Kafka TCP | Publish commerce events |
+| 2 | Ingestor | Kafka | Kafka TCP | Consume commerce events |
+| 3 | Ingestor | MinIO | S3 API / HTTP | Store raw commerce data |
+| 4 | Analyzer | Spark | Spark Job Submission | Execute ETL processing |
+| 5 | Spark | MinIO | S3 API / HTTP | Read raw data and write Parquet files |
+| 6 | Spark | Iceberg Catalog | REST / HTTP | Resolve and update Iceberg table metadata |
+| 7 | Iceberg Catalog | MinIO | S3 API / HTTP | Access table metadata and storage |
+| 8 | Trino | Iceberg Catalog | REST / HTTP | Discover Iceberg tables and metadata |
+| 9 | Trino | MinIO | S3 API / HTTP | Read curated Parquet data |
+| 10 | Thinker | Trino | SQL / HTTP | Retrieve structured data for AI/ML analysis |
+| 11 | Presenter | Trino | SQL / HTTP | Execute structured analytical queries |
+| 12 | Presenter | Thinker | REST / HTTP | Request AI/ML insights |
+| 13 | Website | Presenter | REST / HTTP | Request application data |
+| 14 | Presenter | Generator | REST / HTTP | Trigger commerce data generation |
+| 15 | Presenter | Analyzer | REST / HTTP | Trigger or inspect analytical processing |
+| 16 | Airflow | Analyzer | REST / HTTP | Trigger processing workflows |
+| 17 | Airflow | PostgreSQL | PostgreSQL TCP | Store orchestration metadata |
+| 18 | Superset | Trino | SQL / HTTP | Execute analytical queries |
+| 19 | Superset | PostgreSQL | PostgreSQL TCP | Store BI dashboard metadata |
+| 20 | Prometheus | Application Services | HTTP `/actuator/prometheus` or `/metrics` | Collect application metrics |
+| 21 | Prometheus | Infrastructure Exporters | HTTP `/metrics` | Collect supported infrastructure metrics |
+| 22 | Grafana | Prometheus | HTTP API | Query operational metrics |
+| 23 | Tester | Presenter | REST / HTTP | Execute public API E2E tests |
+| 24 | Tester | Generator | REST / HTTP | Test Generator before Presenter is implemented |
+| 25 | Tester | Website | HTTP / WebDriver | Execute browser-based E2E tests |
+| 26 | `airflow-init` | PostgreSQL | PostgreSQL TCP | Initialize the Airflow metadata database |
+| 27 | `minio-init` | MinIO | S3 API / HTTP | Create required storage buckets |
+
+**Communication Notes**
+
+1. **Internal Networking**
+   - Containers use Docker Compose DNS and service names.
+   - Internal communication does not require publishing ports to the host.
+
+2. **Public Gateway**
+   - Presenter is the primary public backend API.
+   - Website communicates with Presenter to retrieve data and execute supported operations.
+   - Browser-based requests require a browser-accessible address or reverse proxy.
+
+3. **Event Streaming**
+   - Generator publishes commerce events to Kafka.
+   - Ingestor consumes those events and persists raw data in MinIO.
+
+4. **Data Processing**
+   - Analyzer coordinates structured ETL processing.
+   - Spark reads raw data from MinIO and writes curated data using Parquet and Iceberg.
+   - The exact Analyzer-to-Spark job execution mechanism will be selected during implementation.
+
+5. **Lakehouse Metadata**
+   - Spark and Trino communicate with the Iceberg REST Catalog.
+   - Both access the underlying data stored in MinIO.
+   - The Catalog implementation and its metadata persistence configuration will be finalized during implementation.
+
+6. **Structured Analytics**
+   - Trino executes SQL queries against curated Iceberg tables.
+   - Presenter uses Trino for application-level structured analytics.
+   - Superset can query Trino directly for BI dashboards.
+
+7. **AI/ML Analysis**
+   - Thinker can retrieve structured analytical data from Trino.
+   - Presenter invokes Thinker through its REST API.
+   - Combined analysis connects structured analytical results with semantic AI/ML insights.
+
+8. **Workflow Orchestration**
+   - Airflow coordinates data-processing workflows.
+   - It can trigger Analyzer operations and track workflow execution.
+   - Airflow stores its orchestration metadata in PostgreSQL.
+
+9. **Observability**
+   - Prometheus collects metrics from supported application and infrastructure endpoints.
+   - Grafana queries Prometheus to display operational dashboards.
+   - Infrastructure services without native Prometheus endpoints may require exporters.
+
+10. **External Testing**
+    - Tester interacts with documented public APIs and the Website.
+    - It should not directly inspect Kafka, MinIO, Iceberg, or other internal data stores to determine test success.
+    - During early milestones, Tester may access Generator directly before Presenter exists.
+
+11. **Initialization**
+    - `airflow-init` prepares the Airflow metadata database.
+    - `minio-init` creates required storage buckets and configuration.
+    - These containers are not continuously running services.
+
+12. **Security Scope**
+    - Production authentication and authorization are intentionally excluded from the initial demo.
+    - API authentication and authorization can later be added at the Presenter / Gateway boundary.
+    - UI permissions can be added independently to the Website.
+    - Data-level and contextual authorization require additional design and are outside the initial scope.
+
+### Architecture Decisions
+
+The following decisions should be finalized during implementation:
+
+- **Analyzer and Spark** — whether Analyzer remains a separate service or executes directly inside the Spark container.
+- **Iceberg Catalog** — which REST Catalog implementation and metadata persistence approach to use.
+- **Airflow Deployment** — whether a single Airflow container is sufficient or separate scheduler/API components are required.
+- **AI/ML Runtime** — which local AI/ML libraries or models Thinker will use and whether additional model-serving infrastructure is necessary.
+- **Metrics Exporters** — which infrastructure components require separate exporters.
+- **Public Ports** — which services expose localhost ports and which remain internal.
+- **Resource Limits** — memory and CPU allocation for a practical single-machine demonstration.
+
+The objective is to preserve a simple, understandable, and runnable Docker Compose environment while demonstrating the complete Big Data and AI/ML architecture.
+
 ---
 
 # 3. User Guide
