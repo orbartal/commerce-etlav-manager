@@ -93,8 +93,8 @@ Recommended reading:
 | 2.3 | Complete System | [2.3 Complete System](#23-complete-system) |
 | 2.4 | Security Extension | [2.9 Security Boundary](#29-security-boundary) |
 | 2.5 | Docker Architecture | [2.12 Dockers Architecture](#212-docker-architecture) |
-| 2.6 | Docker Communication by Trigger | [2.13 Dockers API Trigger](#213-docker-communication-by-trigger) |
-| 2.6 | Docker Communication by protocol | [2.14 Dockers API Protocol](#214-docker-communication-by-protocol) |
+| 2.6 | Docker Communication by Trigger | [2.13 Dockers Communication Trigger](#213-docker-communication-by-trigger) |
+| 2.6 | Docker Communication by protocol | [2.14 Dockers Communication Protocol](#214-docker-communication-by-protocol) |
 | 3.1 | Test Flow | [3.9 Running Tests](#39-running-tests) |
 | 4.1 | Development Lifecycle | [4.2 Development Lifecycle](#42-development-lifecycle) |
 | 4.2 | Tenant Test Flow | [4.4 Testing Strategy](#44-testing-strategy) |
