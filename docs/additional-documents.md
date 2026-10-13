@@ -1,18 +1,17 @@
 [← Back to Main README](../README.md)
 
-# 5. Additional Documents
+# Table of Contents
 
 - [5. Additional Documents](#5-additional-documents)
   - [5.1 Documentation Strategy](#51-documentation-strategy)
   - [5.2 Documentation Evolution](#52-documentation-evolution)
   - [5.3 Planned Documents](#53-planned-documents)
 
+
 ## 5.1 Documentation Strategy
 
-CommerceETLAV starts with this single `README.md` as its primary project document.
-As the project grows, detailed material moveed into dedicated Markdown documents in folder docs.
-However, the README remain the primary project entry point.
-
+CommerceETLAV initially used a single `README.md` as its primary project document.
+As the project grows, detailed material is moved into dedicated Markdown documents in the `docs/` folder. The README remains the primary project entry point.
 When detailed information is moved into another document, the README should retain the core ideas and provide a link to the detailed document.
 
 ## 5.2 Documentation Evolution
@@ -98,4 +97,4 @@ Developer documentation explains:
 - Maintenance scripts.
 - Development roadmap.
 
-Detailed documents will be added only as the project grows enough to justify separating them from this README.
+Additional detailed documents will be created as the project grows and the documentation becomes large enough to justify further separation.
