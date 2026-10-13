@@ -91,13 +91,13 @@ Recommended reading:
 ## Table of content
 
 
-**Summery and content**
+**Summary and Contents**
 
 - [Executive Summary](#executive-summary)
-  - [Reviewer / Interviewer](#reviewer-interviewer)
+  - [Reviewer / Interviewer](#reviewer--interviewer)
   - [Demo User](#demo-user)
   - [Developer](#developer)
-- [Contents](#contents)
+- [Contents](#table-of-content)
 - [Diagram Index](#diagram-index)
 - [Table Index](#table-index)
 
@@ -408,33 +408,33 @@ The complete system contains CommerceETLAV microservices, third-party infrastruc
 │                                           │                                 │
 │                         ┌─────────────────┴─────────────────┐               │
 │                         ▼                                   ▼               │
-│                  ┌────────────┐                       ┌───────────┐          │
-│                  │   Trino    │                       │  Thinker  │          │
-│                  │ SQL Query  │                       │  AI / ML  │          │
-│                  └─────┬──────┘                       └─────┬─────┘          │
-│                        │                                    │                │
-│                        └────────────────┬───────────────────┘                │
-│                                         ▼          │                         │
-│                                  ┌─────────────┐   │                         │
-│                                  │  Presenter  │   │                         │
-│                                  │ Public API  │   │                         │
-│                                  └──────┬──────┘   │                         │
-│                                         │          │                         │
-│                              ┌──────────┴          │                         │
-│                              ▼                     ▼                         │
-│                       ┌────────────┐         ┌────────────┐                  │
-│                       │  Website   │         │  Superset  │                  │
-│                       │ Demo UI    │         │ BI / Charts│                  │
-│                       └────────────┘         └────────────┘                  │
-│                                                                              │
-│  ORCHESTRATION                       OBSERVABILITY                           │
-│                                                                              │
-│  ┌────────────┐                      ┌────────────┐   ┌────────────┐         │
-│  │  Airflow   │                      │ Prometheus │──►│  Grafana   │         │
-│  │ Workflows  │                      │  Metrics   │   │ Dashboard  │         │
-│  └────────────┘                      └────────────┘   └────────────┘         │
-│                                                                              │
-└─────────────────────────────────────────────────────────────────────────────-┘
+│                  ┌────────────┐                       ┌───────────┐         │
+│                  │   Trino    │                       │  Thinker  │         │
+│                  │ SQL Query  │                       │  AI / ML  │         │
+│                  └─────┬──────┘                       └─────┬─────┘         │
+│                        │                                    │               │
+│                        └────────────────┬───────────────────┘               │
+│                                         ▼          │                        │
+│                                  ┌─────────────┐   │                        │
+│                                  │  Presenter  │   │                        │
+│                                  │ Public API  │   │                        │
+│                                  └──────┬──────┘   │                        │
+│                                         │          │                        │
+│                              ┌──────────┴          │                        │
+│                              ▼                     ▼                        │
+│                       ┌────────────┐         ┌────────────┐                 │
+│                       │  Website   │         │  Superset  │                 │
+│                       │ Demo UI    │         │ BI / Charts│                 │
+│                       └────────────┘         └────────────┘                 │
+│                                                                             │
+│  ORCHESTRATION                       OBSERVABILITY                          │
+│                                                                             │
+│  ┌────────────┐                      ┌────────────┐   ┌────────────┐        │
+│  │  Airflow   │                      │  Grafana   │──►│  Prometheus│        │
+│  │ Workflows  │                      │  Dashboard │   │ Metrics    │        │
+│  └────────────┘                      └────────────┘   └────────────┘        │
+│                                                                             │
+└────────────────────────────────────────────────────────────────────────────-┘
                     ▲                                  ▲
                     │                                  │
                     └──────────┐            ┌──────────┘
@@ -463,7 +463,7 @@ The Tester remains outside the system boundary and validates the system as an ex
 | 8 | `commerce-etlav-tester` | Testing | Performs external black-box E2E testing |
 
 Note 1: commerce-etlav-manager isn't a docker or application running in production.
-Instead it contain the docker-compose and every other resource and config that enable to run the entire project locally.
+Instead, it contain the docker-compose and every other resource and config that enable to run the entire project locally.
 
 Note 2: Each application repository owns its application source code and Dockerfile.
 
@@ -569,6 +569,9 @@ The exact ports will be finalized during implementation.
 | 13 | Prometheus | Metrics | Infrastructure — Prometheus | HTTP / `localhost:<port>` | Collects operational metrics |
 | 14 | Grafana | Monitor | Infrastructure — Grafana | HTTP / `localhost:<port>` | Displays operational dashboards |
 | 15 | Tester | Test | External test application | CLI / optional HTTP | Executes black-box E2E scenarios |
+| 16 | Iceberg Catalog | Catalog | Infrastructure — Iceberg REST Catalog | HTTP / `localhost:<port>` | Manages Iceberg table metadata |
+| 17 | PostgreSQL | Metadata | Infrastructure — PostgreSQL | PostgreSQL / `localhost:<port>` | Stores Airflow and Superset metadata |
+
 
 ## 2.9 Security Boundary
 
@@ -646,7 +649,7 @@ The proposed final architecture contains **19 Docker containers**:
 In production:
 - 16 containers run continuously. 6 dockers I created and 10 are third party.
 - 2 containers run only during initialization: airflow-init and minio-init.
-- 1 container run only during testing. It is the end-to-end tester I created.
+- 1 container runs only during testing. It is the end-to-end tester I created.
 
 The architecture is designed for a single-machine, non-production demonstration.
 
