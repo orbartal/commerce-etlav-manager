@@ -10,11 +10,9 @@ The project follows commerce data from generation through streaming, ingestion, 
 
 ---
 
-
 ## Readme Overview
-
 - [Executive Summary](#executive-summary)
-- [Contents](#table-of-content)
+- [Table of Contents](#table-of-content)
 - [1. Project Goals](#1-project-goals)
 - [2. Project Architecture](#2-project-architecture)
 - [3. User Guide](#3-user-guide)
@@ -22,7 +20,6 @@ The project follows commerce data from generation through streaming, ingestion, 
 - [5. Additional Documents](#5-additional-documents)
 
 ---
-
 
 ## Executive Summary
 
@@ -86,10 +83,7 @@ Recommended reading:
 - Project roadmap.
 - [5. Additional Documents](#5-additional-documents)
 
----
-
 ## Table of content
-
 
 **Summary and Contents**
 
@@ -137,6 +131,9 @@ Recommended reading:
     - [Diagram 2.7 — Docker Communication by Protocol](#diagram-27--docker-communication-by-protocol)
     - [Diagram 2.7 Color Legend](#diagram-27-color-legend)
     - [Communication Notes](#communication-notes)
+ - [2.15 Microservices Architecture](#214-microservices-architecture)
+    - [Diagram 2.8 — Microservice Architecture](#diagram-28--microservice-architecture)
+    - [Diagram 2.8 Color Legend](#diagram-28-color-legend)
 
 **3. User Guide**
 - [3. User Guide](#3-user-guide)
@@ -1418,6 +1415,218 @@ flowchart TB
 
 11. **Protocol assumptions:** The diagram represents the planned communication design. Exact protocols and endpoints must be validated during implementation.
 
+---
+
+## 2.15 Microservices Architecture
+
+### Diagram 2.8 — Microservice Architecture
+
+There are 19 microservices/dockers in below diagram.
+
+```mermaid
+flowchart TB
+
+    %% ==========================================
+    %% EXTERNAL TESTING
+    %% ==========================================
+
+    subgraph TESTING["External Testing (On Demand)"]
+        direction LR
+        tester["tester<br/>Internal"]
+    end
+
+    %% ==========================================
+    %% API AND VISUALIZATION
+    %% ==========================================
+
+    subgraph API["API and Visualization (3 Containers)"]
+        direction LR
+        website["website<br/>Internal"]
+        presenter["presenter<br/>Internal"]
+        superset["superset<br/>External"]
+    end
+
+    %% ==========================================
+    %% ANALYTICS AND AI/ML
+    %% ==========================================
+
+    subgraph AI["Analytics and AI/ML (2 Containers)"]
+        direction LR
+        thinker["thinker<br/>Internal"]
+        trino["trino<br/>External"]
+    end
+
+    %% ==========================================
+    %% DATA GENERATION AND INGESTION
+    %% ==========================================
+
+    subgraph INGESTION["Data Generation and Ingestion (4 Containers)"]
+        direction LR
+        generator["generator<br/>Internal"]
+        kafka["kafka<br/>External"]
+        ingestor["ingestor<br/>Internal"]
+        minio["minio<br/>External"]
+    end
+
+    %% ==========================================
+    %% PROCESSING AND LAKEHOUSE
+    %% ==========================================
+
+    subgraph PROCESSING["Processing and Lakehouse (3 Containers)"]
+        direction LR
+        analyzer["analyzer<br/>Internal"]
+        spark["spark<br/>External"]
+        iceberg["iceberg-catalog<br/>External"]
+    end
+
+    %% ==========================================
+    %% WORKFLOW ORCHESTRATION
+    %% ==========================================
+
+    subgraph WORKFLOW["Workflow Orchestration (2 Containers)"]
+        direction LR
+        airflow["airflow<br/>External"]
+        postgres["postgres<br/>External"]
+    end
+
+    %% ==========================================
+    %% INITIALIZATION
+    %% ==========================================
+
+    subgraph INIT["Initialization (2 Containers - Run Once)"]
+        direction LR
+        airflow_init["airflow-init<br/>External"]
+        minio_init["minio-init<br/>External"]
+    end
+
+    %% ==========================================
+    %% MONITORING AND OBSERVABILITY
+    %% ==========================================
+
+    subgraph MONITORING["Monitoring and Observability (2 Containers)"]
+        direction LR
+        prometheus["prometheus<br/>External"]
+        grafana["grafana<br/>External"]
+    end
+
+    %% ==========================================
+    %% USER REQUESTS - BLUE
+    %% ==========================================
+
+    tester -->|End-to-End Tests| presenter
+    website <-->|REST API| presenter
+    presenter -->|SQL| trino
+    superset -->|SQL| trino
+    presenter -->|Start Generation| generator
+    presenter -->|Trigger Processing| analyzer
+
+    %% ==========================================
+    %% INCOMING EVENTS - GREEN
+    %% ==========================================
+
+    generator -->|Events| kafka
+    kafka -->|Events| ingestor
+    ingestor -->|Raw Data - S3 API| minio
+
+    %% ==========================================
+    %% SCHEDULED ETL - PURPLE
+    %% ==========================================
+
+    airflow -->|Trigger ETL Workflow| analyzer
+    analyzer -->|Submit Job| spark
+    spark <-->|S3 API| minio
+    spark -->|Metadata| iceberg
+    iceberg -->|S3 API| minio
+    trino -->|Catalog API| iceberg
+    trino -->|S3 API| minio
+    airflow -->|Metadata - DB Protocol| postgres
+
+    %% ==========================================
+    %% AI QUERY - ORANGE DASHED
+    %% ==========================================
+
+    presenter -.->|AI/ML Request| thinker
+    thinker -.->|SQL| trino
+
+    %% ==========================================
+    %% INITIALIZATION - BROWN
+    %% ==========================================
+
+    airflow_init -->|Initialize Database| postgres
+    minio_init -->|Create Buckets - S3 API| minio
+
+    %% ==========================================
+    %% SYSTEM OPERATIONS - GRAY DASHED
+    %% ==========================================
+
+    prometheus -.->|Metrics| generator
+    prometheus -.->|Metrics| kafka
+    prometheus -.->|Metrics| ingestor
+    prometheus -.->|Metrics| analyzer
+    prometheus -.->|Metrics| thinker
+    prometheus -.->|Metrics| presenter
+    prometheus -.->|Metrics| spark
+    grafana -->|Metrics HTTP API| prometheus
+
+    %% ==========================================
+    %% SERVICE CLASSIFICATION
+    %% ==========================================
+
+    classDef internal fill:#e0f7e8,stroke:#777,color:#111
+    classDef external fill:#dcecff,stroke:#777,color:#111
+
+    class generator,ingestor,analyzer,thinker,presenter,website,tester internal
+
+    class kafka,minio,spark,iceberg,trino,superset,airflow,postgres,prometheus,grafana,airflow_init,minio_init external
+
+    %% ==========================================
+    %% GROUP STYLING
+    %% ==========================================
+
+    style TESTING fill:#ffffff,stroke:#111,stroke-width:2px
+    style API fill:#ffffff,stroke:#111,stroke-width:2px
+    style AI fill:#ffffff,stroke:#111,stroke-width:2px
+    style INGESTION fill:#ffffff,stroke:#111,stroke-width:2px
+    style PROCESSING fill:#ffffff,stroke:#111,stroke-width:2px
+    style WORKFLOW fill:#ffffff,stroke:#111,stroke-width:2px
+    style INIT fill:#ffffff,stroke:#111,stroke-width:2px
+    style MONITORING fill:#ffffff,stroke:#111,stroke-width:2px
+
+    %% ==========================================
+    %% COMMUNICATION COLORS
+    %% ==========================================
+
+    linkStyle 0,1,2,3,4,5 stroke:#1682ff,stroke-width:2px
+    linkStyle 6,7,8 stroke:#009b51,stroke-width:2px
+    linkStyle 9,10,11,12,13,14,15,16 stroke:#9125e6,stroke-width:2px
+    linkStyle 17,18 stroke:#ff7900,stroke-width:2px,stroke-dasharray:6 4
+    linkStyle 19,20 stroke:#a34b12,stroke-width:2px
+    linkStyle 21,22,23,24,25,26,27,28 stroke:#697783,stroke-width:1.5px,stroke-dasharray:5 4
+```
+
+#### Diagram 2.8 Color Legend
+
+**Microservice Type Legend**
+
+| Color | Type | Definition | Example |
+|---|---|---|---|
+| 🟢 Green | Internal | A service whose entire codebase I developed myself | `generator` |
+| 🔵 Blue | External | A service I download and configure from an open-source project or vendor | `postgres` |
+
+NOTE: Docker is also service, component, application or one microservice. 
+
+**Communication Type Legend**
+
+| Color | Communication Type | Description |
+|---|---|---|
+| 🔵 Blue | User Request | Non-AI application requests |
+| 🟢 Green | Incoming Event | Event-driven data ingestion |
+| 🟣 Purple | Scheduled Job | ETL workflow and processing |
+| 🟠 Orange | AI Query | AI/ML-specific requests (dashed line) |
+| 🟤 Brown | Initialization | One-time setup operations |
+| ⚪ Gray | System Operation | Monitoring and operational traffic (dashed line) |
+
+NOTE: Communication is also line/arrow in diagram and API protocol in production. 
 
 ---
 
