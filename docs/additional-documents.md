@@ -2,7 +2,7 @@
 
 # 5. Additional Documents
 
-# Table of Contents
+## Table of Contents
 
 - [5. Additional Documents](#5-additional-documents)
   - [5.1 Documentation Strategy](#51-documentation-strategy)
