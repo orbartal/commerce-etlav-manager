@@ -176,9 +176,9 @@ Recommended reading:
 | 2.2 | Analysis Flow | [2.2 Analysis Flow](#22-analysis-flow) |
 | 2.3 | Complete System | [2.3 Complete System](#23-complete-system) |
 | 2.4 | Security Extension | [2.9 Security Boundary](#29-security-boundary) |
-| 2.5 | Docker Architecture | [2.12 Dockers Architecture](#212-docker-architecture) |
-| 2.6 | Docker Communication by Trigger | [2.13 Dockers Communication Trigger](#213-docker-communication-by-trigger) |
-| 2.7 | Docker Communication by protocol | [2.14 Dockers Communication Protocol](#214-docker-communication-by-protocol) |
+| 2.5 | Docker Architecture | [2.12 Docker Architecture](#212-docker-architecture) |
+| 2.6 | Docker Communication by Trigger | [2.13 Docker Communication Trigger](#213-docker-communication-by-trigger) |
+| 2.7 | Docker Communication by protocol | [2.14 Docker Communication Protocol](#214-docker-communication-by-protocol) |
 | 3.1 | Test Flow | [3.9 Running Tests](#39-running-tests) |
 | 4.1 | Development Lifecycle | [4.2 Development Lifecycle](#42-development-lifecycle) |
 | 4.2 | Tenant Test Flow | [4.4 Testing Strategy](#44-testing-strategy) |
@@ -414,27 +414,27 @@ The complete system contains CommerceETLAV microservices, third-party infrastruc
 │                  └─────┬──────┘                       └─────┬─────┘          │
 │                        │                                    │                │
 │                        └────────────────┬───────────────────┘                │
-│                                         ▼                                   │
-│                                  ┌─────────────┐                            │
-│                                  │  Presenter  │                            │
-│                                  │ Public API  │                            │
-│                                  └──────┬──────┘                            │
-│                                         │                                   │
-│                              ┌──────────┴──────────┐                        │
-│                              ▼                     ▼                        │
-│                       ┌────────────┐         ┌────────────┐                 │
-│                       │  Website   │         │  Superset  │                 │
-│                       │ Demo UI    │         │ BI / Charts│                 │
-│                       └────────────┘         └────────────┘                 │
-│                                                                             │
+│                                         ▼          │                         │
+│                                  ┌─────────────┐   │                         │
+│                                  │  Presenter  │   │                         │
+│                                  │ Public API  │   │                         │
+│                                  └──────┬──────┘   │                         │
+│                                         │          │                         │
+│                              ┌──────────┴          │                         │
+│                              ▼                     ▼                         │
+│                       ┌────────────┐         ┌────────────┐                  │
+│                       │  Website   │         │  Superset  │                  │
+│                       │ Demo UI    │         │ BI / Charts│                  │
+│                       └────────────┘         └────────────┘                  │
+│                                                                              │
 │  ORCHESTRATION                       OBSERVABILITY                           │
-│                                                                             │
+│                                                                              │
 │  ┌────────────┐                      ┌────────────┐   ┌────────────┐         │
 │  │  Airflow   │                      │ Prometheus │──►│  Grafana   │         │
 │  │ Workflows  │                      │  Metrics   │   │ Dashboard  │         │
 │  └────────────┘                      └────────────┘   └────────────┘         │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────-┘
                     ▲                                  ▲
                     │                                  │
                     └──────────┐            ┌──────────┘
@@ -635,7 +635,10 @@ The proposed final architecture contains **19 Docker containers**:
 - **7 application containers** — CommerceETLAV microservices, Website, and Tester.
 - **12 infrastructure containers** — third-party services, metadata storage, and initialization utilities.
 
-Of these, **16 containers run continuously**, while **3 containers run only during initialization or testing**.
+In production:
+- 16 containers run continuously. 6 dockers I created and 10 are third party.
+- 2 containers run only during initialization: airflow-init and minio-init.
+- 1 container run only during testing. It is the end-to-end tester I created.
 
 The architecture is designed for a single-machine, non-production demonstration.
 
@@ -659,7 +662,7 @@ The goals are:
 | 2 | `ingestor` | Java / Spring Boot | Consume Kafka events and store raw data |
 | 3 | `analyzer` | Spark-based processing application | Transform, clean, aggregate, and write curated data |
 | 4 | `thinker` | Python / FastAPI | Perform AI/ML semantic analysis |
-| 5 | `presenter` | Java / Spring Boot | Provide the public REST API and application Gateway |
+| 5 | `presenter` | Java / Spring Boot | Provide the public REST API and application gateway |
 | 6 | `website` | React / Web Server | Provide the user-facing interface |
 | 7 | `tester` | Java / Python + Selenium | Execute external black-box E2E tests |
 | 8 | `kafka` | Apache Kafka / KRaft | Provide the event streaming broker |
@@ -1007,7 +1010,7 @@ flowchart TB
 |---|---|---|---|
 | 🔵 Blue | Application | 6 | continuously running containers |
 | ⚪ Gray | Infrastructure | 10 | continuously running containers |
-| 🟠 Orenge  | Tester | 1 |  on-demand container |
+| 🟠 Orange  | Tester | 1 |  on-demand container |
 | 🟢 Green | Initialization | 2 | one-time containers |
 
 Architecture Notes
