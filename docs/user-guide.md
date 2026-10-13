@@ -22,10 +22,12 @@ The final project should require minimal active setup.
 The intended workflow is approximately:
 
 ```bash
-git clone <commerce-etlav-manager-url>
+git clone https://github.com/orbartal/commerce-etlav-manager.git
 cd commerce-etlav-manager
 python scripts/install.py
 ```
+
+**TODO:** No scripts or Docker Compose configuration exist yet. This section describes plans for future implementation.
 
 The installation script will:
 
