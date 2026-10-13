@@ -1,10 +1,12 @@
+
+
 # 2. Project Architecture
 
 The project's main architecture diagram is [Diagram 2.8](#diagram-28--microservices-architecture).\
 It includes both Markdown (`.md`) and image (`.jpg`) versions of the same diagram.\
 Showing the Docker containers/services and their communication/API connections.
 
-## Table of content
+## Table of contents
 
 **2. Project Architecture**
 - [2. Project Architecture](#2-project-architecture)
@@ -186,7 +188,7 @@ The Tester remains outside the system boundary and validates the system as an ex
 | 8 | `commerce-etlav-tester` | Testing | Performs external black-box E2E testing |
 
 Note 1: commerce-etlav-manager isn't a docker or application running in production.
-Instead, it contain the docker-compose and every other resource and config that enable to run the entire project locally.
+Instead, it contains the docker-compose and every other resource and config that enable to run the entire project locally.
 
 Note 2: Each application repository owns its application source code and Dockerfile.
 
@@ -1147,7 +1149,10 @@ flowchart TB
 
 ### Diagram 2.8 — Microservices Architecture
 
-There are 19 microservices/dockers in below diagram.
+The diagram shows all 19 Docker containers as squares \
+application services, infrastructure services, and initialization containers.
+
+Communication between containers is represented by lines and arrows.
 
 ```mermaid
 flowchart TB
@@ -1342,8 +1347,6 @@ flowchart TB
 | 🟢 Green | Internal | A service whose entire codebase I developed myself | `generator` |
 | 🔵 Blue | External | A service I download and configure from an open-source project or vendor | `postgres` |
 
-NOTE: Docker is also service, component, application or one microservice. 
-
 **Communication Type Legend**
 
 | Color | Communication Type | Description |
@@ -1354,5 +1357,3 @@ NOTE: Docker is also service, component, application or one microservice.
 | 🟠 Orange | AI Query | AI/ML-specific requests (dashed line) |
 | 🟤 Brown | Initialization | One-time setup operations |
 | ⚪ Gray | System Operation | Monitoring and operational traffic (dashed line) |
-
-NOTE: Communication is also line/arrow in diagram and API protocol in production.
