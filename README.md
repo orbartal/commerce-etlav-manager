@@ -14,7 +14,7 @@ The project follows commerce data from generation through streaming, ingestion, 
 ## Readme Overview
 
 - [Executive Summary](#executive-summary)
-- [Contents](#contents)
+- [Contents](#table-of-content)
 - [1. Project Goals](#1-project-goals)
 - [2. Project Architecture](#2-project-architecture)
 - [3. User Guide](#3-user-guide)
@@ -91,7 +91,7 @@ Recommended reading:
 ## Table of content
 
 
-### 0. Summery and content
+**Summery and content**
 
 - [Executive Summary](#executive-summary)
   - [Reviewer / Interviewer](#reviewer-interviewer)
@@ -101,7 +101,7 @@ Recommended reading:
 - [Diagram Index](#diagram-index)
 - [Table Index](#table-index)
 
-### 1. Project Goals
+**1. Project Goals**
 - [1. Project Goals](#1-project-goals)
   - [1.1 Project Description](#11-project-description)
   - [1.2 Project Demonstrates](#12-project-demonstrates)
@@ -111,7 +111,7 @@ Recommended reading:
   - [1.6 AI/ML Analysis](#16-aiml-analysis)
   - [1.7 Combined Analysis](#17-combined-analysis)
 
-### 2. Project Architecture
+**2. Project Architecture**
 - [2. Project Architecture](#2-project-architecture)
   - [2.1 Data Flow](#21-data-flow)
   - [2.2 Analysis Flow](#22-analysis-flow)
@@ -138,7 +138,7 @@ Recommended reading:
     - [Diagram 2.7 Color Legend](#diagram-27-color-legend)
     - [Communication Notes](#communication-notes)
 
-### 3. User Guide
+**3. User Guide**
 - [3. User Guide](#3-user-guide)
   - [3.1 Quick Start](#31-quick-start)
   - [3.2 Expected Startup](#32-expected-startup)
@@ -150,7 +150,7 @@ Recommended reading:
   - [3.8 Website and APIs](#38-website-and-apis)
   - [3.9 Running Tests](#39-running-tests)
 
-### 4. Development Process
+**4. Development Process**
 - [4. Development Process](#4-development-process)
   - [4.1 Project Principles](#41-project-principles)
   - [4.2 Development Lifecycle](#42-development-lifecycle)
@@ -160,7 +160,7 @@ Recommended reading:
   - [4.6 Project Roadmap](#46-project-roadmap)
   - [4.7 Repository Responsibilities](#47-repository-responsibilities)
 
-### 5. Additional Documents
+**5. Additional Documents**
 - [5. Additional Documents](#5-additional-documents)
   - [5.1 Documentation Strategy](#51-documentation-strategy)
   - [5.2 Documentation Evolution](#52-documentation-evolution)
