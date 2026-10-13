@@ -1,5 +1,7 @@
 [← Back to Main README](../README.md)
 
+# 5. Additional Documents
+
 # Table of Contents
 
 - [5. Additional Documents](#5-additional-documents)
