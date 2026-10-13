@@ -27,7 +27,7 @@ cd commerce-etlav-manager
 python scripts/install.py
 ```
 
-**TODO:** No scripts or Docker Compose configuration exist yet. This section describes plans for future implementation.
+>  **TODO:** No scripts or Docker Compose configuration exist yet. This section describes plans for future implementation.
 
 The installation script will:
 
