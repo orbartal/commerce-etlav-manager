@@ -131,8 +131,8 @@ Recommended reading:
     - [Diagram 2.7 — Docker Communication by Protocol](#diagram-27--docker-communication-by-protocol)
     - [Diagram 2.7 Color Legend](#diagram-27-color-legend)
     - [Communication Notes](#communication-notes)
- - [2.15 Microservices Architecture](#214-microservices-architecture)
-    - [Diagram 2.8 — Microservice Architecture](#diagram-28--microservice-architecture)
+ - [2.15 Microservices Architecture](#215-microservices-architecture)
+    - [Diagram 2.8 — Microservices Architecture](#diagram-28--microservices-architecture)
     - [Diagram 2.8 Color Legend](#diagram-28-color-legend)
 
 **3. User Guide**
@@ -1419,7 +1419,7 @@ flowchart TB
 
 ## 2.15 Microservices Architecture
 
-### Diagram 2.8 — Microservice Architecture
+### Diagram 2.8 — Microservices Architecture
 
 There are 19 microservices/dockers in below diagram.
 
