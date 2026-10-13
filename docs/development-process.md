@@ -1,8 +1,9 @@
 [← Back to Main README](../README.md)
 
+# 4. Development Process
+
 ## Table of contents
 
-**4. Development Process**
 - [4. Development Process](#4-development-process)
   - [4.1 Project Principles](#41-project-principles)
   - [4.2 Development Lifecycle](#42-development-lifecycle)
