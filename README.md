@@ -367,16 +367,17 @@ The Tester remains outside the system boundary and validates the system as an ex
 
 **Table 2.1 — Application Services**
 
-| #  | Repository | Service Role | Responsibility |
-|---:|---|---|---|---|
+| # | Repository | Service Role | Responsibility |
+|---:|---|---|---|
 | 1 | `commerce-etlav-manager` | Management | Integrates the complete project, infrastructure, configuration, scripts, Docker Compose, and documentation |
 | 2 | `commerce-etlav-generator` | Generation | Generates deterministic commerce data and events |
 | 3 | `commerce-etlav-ingestor` | Ingestion | Consumes events and persists incoming commerce data |
 | 4 | `commerce-etlav-analyzer` | Analytics | Performs structured ETL and analytical processing |
 | 5 | `commerce-etlav-thinker` | AI/ML | Performs AI/ML and semantic analysis |
-| 6 | `commerce-etlav-presenter` | Gateway | Provides the public backend API and application Gateway |
+| 6 | `commerce-etlav-presenter` | Gateway | Provides the public backend API and application gateway |
 | 7 | `commerce-etlav-website` | Visualization | Provides the user-facing web application |
 | 8 | `commerce-etlav-tester` | Testing | Performs external black-box E2E testing |
+
 
 Each application repository owns its application source code and Dockerfile.
 
