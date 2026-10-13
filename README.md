@@ -462,8 +462,10 @@ The Tester remains outside the system boundary and validates the system as an ex
 | 7 | `commerce-etlav-website` | Visualization | Provides the user-facing web application |
 | 8 | `commerce-etlav-tester` | Testing | Performs external black-box E2E testing |
 
+Note 1: commerce-etlav-manager isn't a docker or application running in production.
+Instead it contain the docker-compose and every other resource and config that enable to run the entire project locally.
 
-Each application repository owns its application source code and Dockerfile.
+Note 2: Each application repository owns its application source code and Dockerfile.
 
 ## 2.5 Infrastructure Services
 
@@ -479,8 +481,14 @@ Each application repository owns its application source code and Dockerfile.
 | 6 | Apache Superset | BI | Provides analytical dashboards and business visualization |
 | 7 | Prometheus | Metrics | Collects system and application metrics |
 | 8 | Grafana | Monitoring | Visualizes operational metrics and system health |
+| 9 | Apache Iceberg | Tabular data | A high-performance table format over cloud data lakes |
+| 10 | PostgreSQL | RDBMS | An object-relational database with SQL |
 
 Infrastructure configuration and required infrastructure Dockerfiles are owned by `commerce-etlav-manager`.
+
+Note: Two additional Docker containers only initialize data/configuration and then exit. 
+This is their sole purpose; unlike the other containers, they do not continue running in production. 
+They do not appear in either of the two tables, but they do appear in the Docker and Roles table.
 
 ## 2.6 Data Components
 
