@@ -1,4 +1,21 @@
+[← Back to Main README](../README.md)
+
 # 1. Project Goals
+
+## Table of content
+
+**Note:** `goals.md` is the first part of a multi-file README for this project.
+
+- [1. Project Goals](#1-project-goals)
+  - [1.1 Project Description](#11-project-description)
+  - [1.2 Project Demonstrates](#12-project-demonstrates)
+  - [1.3 Project Scope](#13-project-scope)
+  - [1.4 Security Scope](#14-security-scope)
+  - [1.5 Structured Analytics](#15-structured-analytics)
+  - [1.6 AI/ML Analysis](#16-aiml-analysis)
+  - [1.7 Combined Analysis](#17-combined-analysis)
+
+---
 
 ## 1.1 Project Description
 
