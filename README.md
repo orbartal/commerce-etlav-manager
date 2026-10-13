@@ -10,6 +10,20 @@ The project follows commerce data from generation through streaming, ingestion, 
 
 ---
 
+
+## Readme Overview
+
+- [Executive Summary](#executive-summary)
+- [Contents](#contents)
+- [1. Project Goals](#1-project-goals)
+- [2. Project Architecture](#2-project-architecture)
+- [3. User Guide](#3-user-guide)
+- [4. Development Process](#4-development-process)
+- [5. Additional Documents](#5-additional-documents)
+
+---
+
+
 ## Executive Summary
 
 CommerceETLAV is designed for three main audiences:
@@ -74,13 +88,83 @@ Recommended reading:
 
 ---
 
-## Contents
+## Table of content
 
-1. [Project Goals](#1-project-goals)
-2. [Project Architecture](#2-project-architecture)
-3. [User Guide](#3-user-guide)
-4. [Development Process](#4-development-process)
-5. [Additional Documents](#5-additional-documents)
+
+### 0. Summery and content
+
+- [Executive Summary](#executive-summary)
+  - [Reviewer / Interviewer](#reviewer-interviewer)
+  - [Demo User](#demo-user)
+  - [Developer](#developer)
+- [Contents](#contents)
+- [Diagram Index](#diagram-index)
+- [Table Index](#table-index)
+
+### 1. Project Goals
+- [1. Project Goals](#1-project-goals)
+  - [1.1 Project Description](#11-project-description)
+  - [1.2 Project Demonstrates](#12-project-demonstrates)
+  - [1.3 Project Scope](#13-project-scope)
+  - [1.4 Security Scope](#14-security-scope)
+  - [1.5 Structured Analytics](#15-structured-analytics)
+  - [1.6 AI/ML Analysis](#16-aiml-analysis)
+  - [1.7 Combined Analysis](#17-combined-analysis)
+
+### 2. Project Architecture
+- [2. Project Architecture](#2-project-architecture)
+  - [2.1 Data Flow](#21-data-flow)
+  - [2.2 Analysis Flow](#22-analysis-flow)
+  - [2.3 Complete System](#23-complete-system)
+  - [2.4 Application Services](#24-application-services)
+  - [2.5 Infrastructure Services](#25-infrastructure-services)
+  - [2.6 Data Components](#26-data-components)
+  - [2.7 Technology Stack](#27-technology-stack)
+  - [2.8 Running Services](#28-running-services)
+  - [2.9 Security Boundary](#29-security-boundary)
+  - [2.10 Commerce Data Model](#210-commerce-data-model)
+  - [2.11 Docker Topology](#211-docker-topology)
+    - [Docker and Roles](#docker-and-roles)
+    - [Docker Communications](#docker-communications)
+    - [Architecture Decisions](#architecture-decisions)
+  - [2.12 Docker Architecture](#212-docker-architecture)
+    - [Diagram 2.5 Color Legend](#diagram-25-color-legend)
+  - [2.13 Docker Communication by Trigger](#213-docker-communication-by-trigger)
+    - [Diagram 2.6 Color Legend](#diagram-26-color-legend)
+    - [Diagram Notes](#diagram-notes)
+    - [Implementation Note](#implementation-note)
+  - [2.14 Docker Communication by Protocol](#214-docker-communication-by-protocol)
+    - [Diagram 2.7 — Docker Communication by Protocol](#diagram-27--docker-communication-by-protocol)
+    - [Diagram 2.7 Color Legend](#diagram-27-color-legend)
+    - [Communication Notes](#communication-notes)
+
+### 3. User Guide
+- [3. User Guide](#3-user-guide)
+  - [3.1 Quick Start](#31-quick-start)
+  - [3.2 Expected Startup](#32-expected-startup)
+  - [3.3 System Operations](#33-system-operations)
+  - [3.4 Generate Data](#34-generate-data)
+  - [3.5 Structured Queries](#35-structured-queries)
+  - [3.6 AI/ML Queries](#36-aiml-queries)
+  - [3.7 Combined Queries](#37-combined-queries)
+  - [3.8 Website and APIs](#38-website-and-apis)
+  - [3.9 Running Tests](#39-running-tests)
+
+### 4. Development Process
+- [4. Development Process](#4-development-process)
+  - [4.1 Project Principles](#41-project-principles)
+  - [4.2 Development Lifecycle](#42-development-lifecycle)
+  - [4.3 Definition of Done](#43-definition-of-done)
+  - [4.4 Testing Strategy](#44-testing-strategy)
+  - [4.5 Project Status](#45-project-status)
+  - [4.6 Project Roadmap](#46-project-roadmap)
+  - [4.7 Repository Responsibilities](#47-repository-responsibilities)
+
+### 5. Additional Documents
+- [5. Additional Documents](#5-additional-documents)
+  - [5.1 Documentation Strategy](#51-documentation-strategy)
+  - [5.2 Documentation Evolution](#52-documentation-evolution)
+  - [5.3 Planned Documents](#53-planned-documents)
 
 ---
 
@@ -133,7 +217,7 @@ The same data can be analyzed using both traditional structured-data technologie
 
 The project is intentionally small enough to run locally and understand, while demonstrating architecture and technologies that are relevant to much larger data systems.
 
-## 1.2 Project Goals
+## 1.2 Project Demonstrates
 
 The project demonstrates:
 
