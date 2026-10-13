@@ -1,5 +1,9 @@
 # 2. Project Architecture
 
+The project's main architecture diagram is [2.15 Microservices Architecture](#215-docker-microservices-architecture).
+It includes both Markdown (`.md`) and image (`.jpg`) versions of the same diagram.
+Showing the Docker containers/services and their communication/API connections.
+
 ## Table of content
 
 **2. Project Architecture**
@@ -1324,6 +1328,8 @@ flowchart TB
     linkStyle 19,20 stroke:#a34b12,stroke-width:2px
     linkStyle 21,22,23,24,25,26,27,28 stroke:#697783,stroke-width:1.5px,stroke-dasharray:5 4
 ```
+
+![Commerce ETLAV Architecture](images/commerce_etlav_microservices_architecture_150kb.jpg)
 
 #### Diagram 2.8 Color Legend
 
