@@ -10,6 +10,10 @@ The project follows commerce data from generation through streaming, ingestion, 
 
 ---
 
+![Commerce ETLAV Microservices Architecture](docs/images/commerce_etlav_microservices_architecture_150kb.jpg)
+
+---
+
 ## Readme Overview
 - [Executive Summary](#executive-summary)
 - [Table of Contents](#table-of-content)
