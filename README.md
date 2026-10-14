@@ -14,7 +14,7 @@ It covers streaming, ingestion, storage, transformation, structured analysis, AI
 
 - [Project Architecture](#project-architecture)
 - [Project Documentation](#project-documentation)
-- [Executive Summary](#executive-summary)
+- [Target Audience](#target-audience)
 - [Table of Contents](#table-of-contents)
 - [Diagram Index](#diagram-index)
 - [Table Index](#table-index)
@@ -31,7 +31,7 @@ It covers streaming, ingestion, storage, transformation, structured analysis, AI
 - [Development Process](docs/development-process.md) — Principles, lifecycle, testing, and roadmap.
 - [Additional Documents](docs/additional-documents.md) — Documentation strategy and future plans.
 
-## Executive Summary
+## Target Audience
 
 CommerceETLAV is designed for three main audiences:
 
@@ -39,59 +39,11 @@ CommerceETLAV is designed for three main audiences:
 - **Demo User** — Anyone who wants to see a small project using Big Data, ETL, data warehouse/lakehouse concepts, analytics, and AI/ML.
 - **Developer** — Anyone who wants to build a similar project using Big Data, ETL, data warehouse/lakehouse concepts, analytics, and AI/ML.
 
-### Reviewer / Interviewer
+How to use CommerceETLAV by user type
 
-CommerceETLAV demonstrates:
-
-- Big Data and data engineering.
-- Distributed data processing.
-- Structured analytics.
-- AI/ML analysis.
-- Microservice architecture.
-- APIs and visualization.
-- Automated testing.
-- Observability.
-- Incremental software development.
-- Architecture and design decisions.
-
-Recommended reading:
-
-- [1. Project Goals](#1-project-goals)
-- [2. Project Architecture](#2-project-architecture)
-- [4. Development Process](#4-development-process)
-- Project principles.
-- Technology stack.
-- Project roadmap.
-
-### Demo User
-
-CommerceETLAV is designed to run locally with minimal setup.
-
-A user should be able to install and start the complete platform with one simple command and minimal active interaction.
-
-Recommended reading:
-
-- [3. User Guide](#3-user-guide)
-- Quick start.
-- Generate data.
-- Structured analytics.
-- AI/ML analysis.
-- Website.
-- Running tests.
-
-### Developer
-
-CommerceETLAV demonstrates how multiple application and infrastructure services can be combined into one testable data platform.
-
-Recommended reading:
-
-- [2. Project Architecture](#2-project-architecture)
-- Components and repositories.
-- Data model.
-- [4. Development Process](#4-development-process)
-- Testing strategy.
-- Project roadmap.
-- [5. Additional Documents](#5-additional-documents)
+- **Reviewer / Interviewer** — Explore the project's goals, architecture, technologies, and engineering decisions.
+- **Demo User** — Run the demo, generate data, and explore analytics and AI/ML capabilities.
+- **Developer** — Understand the services, development workflow, testing strategy, and implementation details.
 
 ## Table of Contents 
 
