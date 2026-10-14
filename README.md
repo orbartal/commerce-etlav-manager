@@ -1,5 +1,17 @@
 # CommerceETLAV
 
+## Main README Overview
+
+- [Project Summary](#project-summary)
+- [Target Audience](#target-audience)
+- [Project Architecture](#project-architecture)
+- [Project Documentation](#project-documentation)
+- [Table of Contents](#table-of-contents)
+- [Diagram Index](#diagram-index)
+- [Table Index](#table-index)
+
+## Project Summary
+
 **Extract → Transform → Load → Analyze → Visualize**
 
 CommerceETLAV is a local, open-source commerce data POC application. \
@@ -7,29 +19,7 @@ It demonstrates Big Data, ETL, data warehousing/lakehouse, analytics and AI/ML. 
 The project follows commerce data from generation to visualization, query and end-to-end tests. \
 It covers streaming, ingestion, storage, transformation, structured analysis, AI/ML analysis and APIs.
 
-
 > **Project Status:** Planning / Initial Development
-
-## Main Readme Overview
-
-- [Project Architecture](#project-architecture)
-- [Project Documentation](#project-documentation)
-- [Target Audience](#target-audience)
-- [Table of Contents](#table-of-contents)
-- [Diagram Index](#diagram-index)
-- [Table Index](#table-index)
-
-## Project Architecture
-
-![Commerce ETLAV Architecture](docs/images/commerce_etlav_microservices_architecture_150kb.jpg)
-
-## Project Documentation
-
-- [Project Goals](docs/goals.md) — Purpose, scope, and objectives.
-- [Project Architecture](docs/architecture.md) — Services, data flows, and technologies.
-- [User Guide](docs/user-guide.md) — Installation, operations, analytics, and testing.
-- [Development Process](docs/development-process.md) — Principles, lifecycle, testing, and roadmap.
-- [Additional Documents](docs/additional-documents.md) — Documentation strategy and future plans.
 
 ## Target Audience
 
@@ -45,7 +35,19 @@ How to use CommerceETLAV by user type
 - **Demo User** — Run the demo, generate data, and explore analytics and AI/ML capabilities.
 - **Developer** — Understand the services, development workflow, testing strategy, and implementation details.
 
-## Table of Contents 
+## Project Architecture
+
+![Commerce ETLAV Architecture](docs/images/commerce_etlav_microservices_architecture_150kb.jpg)
+
+## Project Documentation
+
+- [Project Goals](docs/goals.md) — Purpose, scope, and objectives.
+- [Project Architecture](docs/architecture.md) — Services, data flows, and technologies.
+- [User Guide](docs/user-guide.md) — Installation, operations, analytics, and testing.
+- [Development Process](docs/development-process.md) — Principles, lifecycle, testing, and roadmap.
+- [Additional Documents](docs/additional-documents.md) — Documentation strategy and future plans.
+
+## Table of Contents
 
 Table of Contents for the entire documentation, including `README.md` and all documents in the `docs` folder. 
 
@@ -132,3 +134,4 @@ Table of Contents for the entire documentation, including `README.md` and all do
 | 4.1 | Project Status | [4.5 Project Status](docs/development-process.md#45-project-status) |
 | 4.2 | Project Roadmap | [4.6 Project Roadmap](docs/development-process.md#46-project-roadmap) |
 | 4.3 | Repository Responsibilities | [4.7 Repository Responsibilities](docs/development-process.md#47-repository-responsibilities) |
+
