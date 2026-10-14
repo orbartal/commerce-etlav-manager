@@ -96,112 +96,87 @@ Recommended reading:
 
 Table of Contents for the entire documentation, including `README.md` and all documents in the `docs` folder. 
 
-**Summary and Contents**
+### Project Documentation
 
-- [Executive Summary](#executive-summary)
-  - [Reviewer / Interviewer](#reviewer--interviewer)
-  - [Demo User](#demo-user)
-  - [Developer](#developer)
-- [Table of Contents](#table-of-contents)
-- [Diagram Index](#diagram-index)
-- [Table Index](#table-index)
+- [1. Project Goals](docs/goals.md#1-project-goals)
+  - [1.1 Project Purpose](docs/goals.md#11-project-purpose)
+  - [1.2 Project Objectives](docs/goals.md#12-project-objectives)
+  - [1.3 Project Scope](docs/goals.md#13-project-scope)
+  - [1.4 Target Audience](docs/goals.md#14-target-audience)
+  - [1.5 Project Constraints](docs/goals.md#15-project-constraints)
+  - [1.6 Project Deliverables](docs/goals.md#16-project-deliverables)
+  - [1.7 Success Criteria](docs/goals.md#17-success-criteria)
 
-**1. Project Goals**
-- [1. Project Goals](#1-project-goals)
-  - [1.1 Project Description](#11-project-description)
-  - [1.2 Project Demonstrates](#12-project-demonstrates)
-  - [1.3 Project Scope](#13-project-scope)
-  - [1.4 Security Scope](#14-security-scope)
-  - [1.5 Structured Analytics](#15-structured-analytics)
-  - [1.6 AI/ML Analysis](#16-aiml-analysis)
-  - [1.7 Combined Analysis](#17-combined-analysis)
+- [2. Project Architecture](docs/architecture.md#2-project-architecture)
+  - [2.1 Data Flow](docs/architecture.md#21-data-flow)
+  - [2.2 Analysis Flow](docs/architecture.md#22-analysis-flow)
+  - [2.3 Complete System](docs/architecture.md#23-complete-system)
+  - [2.4 Application Services](docs/architecture.md#24-application-services)
+  - [2.5 Infrastructure Services](docs/architecture.md#25-infrastructure-services)
+  - [2.6 Data Components](docs/architecture.md#26-data-components)
+  - [2.7 Technology Stack](docs/architecture.md#27-technology-stack)
+  - [2.8 Running Services](docs/architecture.md#28-running-services)
+  - [2.9 Security Boundary](docs/architecture.md#29-security-boundary)
+  - [2.10 Commerce Data Model](docs/architecture.md#210-commerce-data-model)
+  - [2.11 Docker Topology](docs/architecture.md#211-docker-topology)
+  - [2.12 Docker Architecture](docs/architecture.md#212-docker-architecture)
+  - [2.13 Docker Communication by Trigger](docs/architecture.md#213-docker-communication-by-trigger)
+  - [2.14 Docker Communication by Protocol](docs/architecture.md#214-docker-communication-by-protocol)
+  - [2.15 Microservices Architecture](docs/architecture.md#215-microservices-architecture)
 
-**2. Project Architecture**
-- [2. Project Architecture](#2-project-architecture)
-  - [2.1 Data Flow](#21-data-flow)
-  - [2.2 Analysis Flow](#22-analysis-flow)
-  - [2.3 Complete System](#23-complete-system)
-  - [2.4 Application Services](#24-application-services)
-  - [2.5 Infrastructure Services](#25-infrastructure-services)
-  - [2.6 Data Components](#26-data-components)
-  - [2.7 Technology Stack](#27-technology-stack)
-  - [2.8 Running Services](#28-running-services)
-  - [2.9 Security Boundary](#29-security-boundary)
-  - [2.10 Commerce Data Model](#210-commerce-data-model)
-  - [2.11 Docker Topology](#211-docker-topology)
-    - [Docker and Roles](#docker-and-roles)
-    - [Docker Communications](#docker-communications)
-    - [Architecture Decisions](#architecture-decisions)
-  - [2.12 Docker Architecture](#212-docker-architecture)
-    - [Diagram 2.5 Color Legend](#diagram-25-color-legend)
-  - [2.13 Docker Communication by Trigger](#213-docker-communication-by-trigger)
-    - [Diagram 2.6 Color Legend](#diagram-26-color-legend)
-    - [Diagram Notes](#diagram-notes)
-    - [Implementation Note](#implementation-note)
-  - [2.14 Docker Communication by Protocol](#214-docker-communication-by-protocol)
-    - [Diagram 2.7 — Docker Communication by Protocol](#diagram-27--docker-communication-by-protocol)
-    - [Diagram 2.7 Color Legend](#diagram-27-color-legend)
-    - [Communication Notes](#communication-notes)
-  - [2.15 Microservices Architecture](#215-microservices-architecture)
-    - [Diagram 2.8 — Microservices Architecture](#diagram-28--microservices-architecture)
-    - [Diagram 2.8 Color Legend](#diagram-28-color-legend)
+- [3. User Guide](docs/user-guide.md#3-user-guide)
+  - [3.1 Quick Start](docs/user-guide.md#31-quick-start)
+  - [3.2 Expected Startup](docs/user-guide.md#32-expected-startup)
+  - [3.3 System Operations](docs/user-guide.md#33-system-operations)
+  - [3.4 Generate Data](docs/user-guide.md#34-generate-data)
+  - [3.5 Structured Queries](docs/user-guide.md#35-structured-queries)
+  - [3.6 AI/ML Queries](docs/user-guide.md#36-aiml-queries)
+  - [3.7 Combined Queries](docs/user-guide.md#37-combined-queries)
+  - [3.8 Website and APIs](docs/user-guide.md#38-website-and-apis)
+  - [3.9 Running Tests](docs/user-guide.md#39-running-tests)
 
-**3. User Guide**
-- [3. User Guide](#3-user-guide)
-  - [3.1 Quick Start](#31-quick-start)
-  - [3.2 Expected Startup](#32-expected-startup)
-  - [3.3 System Operations](#33-system-operations)
-  - [3.4 Generate Data](#34-generate-data)
-  - [3.5 Structured Queries](#35-structured-queries)
-  - [3.6 AI/ML Queries](#36-aiml-queries)
-  - [3.7 Combined Queries](#37-combined-queries)
-  - [3.8 Website and APIs](#38-website-and-apis)
-  - [3.9 Running Tests](#39-running-tests)
+- [4. Development Process](docs/development-process.md#4-development-process)
+  - [4.1 Project Principles](docs/development-process.md#41-project-principles)
+  - [4.2 Development Lifecycle](docs/development-process.md#42-development-lifecycle)
+  - [4.3 Definition of Done](docs/development-process.md#43-definition-of-done)
+  - [4.4 Testing Strategy](docs/development-process.md#44-testing-strategy)
+  - [4.5 Project Status](docs/development-process.md#45-project-status)
+  - [4.6 Project Roadmap](docs/development-process.md#46-project-roadmap)
+  - [4.7 Repository Responsibilities](docs/development-process.md#47-repository-responsibilities)
 
-**4. Development Process**
-- [4. Development Process](#4-development-process)
-  - [4.1 Project Principles](#41-project-principles)
-  - [4.2 Development Lifecycle](#42-development-lifecycle)
-  - [4.3 Definition of Done](#43-definition-of-done)
-  - [4.4 Testing Strategy](#44-testing-strategy)
-  - [4.5 Project Status](#45-project-status)
-  - [4.6 Project Roadmap](#46-project-roadmap)
-  - [4.7 Repository Responsibilities](#47-repository-responsibilities)
-
-**5. Additional Documents**
-- [5. Additional Documents](#5-additional-documents)
-  - [5.1 Documentation Strategy](#51-documentation-strategy)
-  - [5.2 Documentation Evolution](#52-documentation-evolution)
-  - [5.3 Planned Documents](#53-planned-documents)
+- [5. Additional Documents](docs/additional-documents.md#5-additional-documents)
+  - [5.1 Documentation Strategy](docs/additional-documents.md#51-documentation-strategy)
+  - [5.2 Documentation Evolution](docs/additional-documents.md#52-documentation-evolution)
+  - [5.3 Planned Documents](docs/additional-documents.md#53-planned-documents)
 
 ## Diagram Index
 
 | Diagram | Title | Section |
 |---|---|---|
-| 2.1 | Data Flow | [2.1 Data Flow](#21-data-flow) |
-| 2.2 | Analysis Flow | [2.2 Analysis Flow](#22-analysis-flow) |
-| 2.3 | Complete System | [2.3 Complete System](#23-complete-system) |
-| 2.4 | Security Extension | [2.9 Security Boundary](#29-security-boundary) |
-| 2.5 | Docker Architecture | [2.12 Docker Architecture](#212-docker-architecture) |
-| 2.6 | Docker Communication by Trigger | [2.13 Docker Communication Trigger](#213-docker-communication-by-trigger) |
-| 2.7 | Docker Communication by protocol | [2.14 Docker Communication Protocol](#214-docker-communication-by-protocol) |
-| 2.8 | Microservices Architecture | [2.15 Microservices Architecture](#diagram-28--microservices-architecture) |
-| 3.1 | Test Flow | [3.9 Running Tests](#39-running-tests) |
-| 4.1 | Development Lifecycle | [4.2 Development Lifecycle](#42-development-lifecycle) |
-| 4.2 | Tenant Test Flow | [4.4 Testing Strategy](#44-testing-strategy) |
-| 5.1 | Documentation Evolution | [5.2 Documentation Evolution](#52-documentation-evolution) |
+| 2.1 | Data Flow | [2.1 Data Flow](docs/architecture.md#21-data-flow) |
+| 2.2 | Analysis Flow | [2.2 Analysis Flow](docs/architecture.md#22-analysis-flow) |
+| 2.3 | Complete System | [2.3 Complete System](docs/architecture.md#23-complete-system) |
+| 2.4 | Security Extension | [2.9 Security Boundary](docs/architecture.md#29-security-boundary) |
+| 2.5 | Docker Architecture | [2.12 Docker Architecture](docs/architecture.md#212-docker-architecture) |
+| 2.6 | Docker Communication by Trigger | [2.13 Docker Communication by Trigger](docs/architecture.md#213-docker-communication-by-trigger) |
+| 2.7 | Docker Communication by Protocol | [2.14 Docker Communication by Protocol](docs/architecture.md#214-docker-communication-by-protocol) |
+| 2.8 | Microservices Architecture | [Diagram 2.8](docs/architecture.md#diagram-28--microservices-architecture) |
+| 3.1 | Test Flow | [3.9 Running Tests](docs/user-guide.md#39-running-tests) |
+| 4.1 | Development Lifecycle | [4.2 Development Lifecycle](docs/development-process.md#42-development-lifecycle) |
+| 4.2 | Tenant Test Flow | [4.4 Testing Strategy](docs/development-process.md#44-testing-strategy) |
+| 5.1 | Documentation Evolution | [5.2 Documentation Evolution](docs/additional-documents.md#52-documentation-evolution) |
 
 ## Table Index
 
 | Table | Title | Section |
 |---|---|---|
-| 2.1 | Application Services | [2.4 Application Services](#24-application-services) |
-| 2.2 | Infrastructure Services | [2.5 Infrastructure Services](#25-infrastructure-services) |
-| 2.3 | Technology Stack | [2.7 Technology Stack](#27-technology-stack) |
-| 2.4 | Running Services | [2.8 Running Services](#28-running-services) |
-| 2.5 | Docker Architecture | [2.12 Docker Architecture](#212-docker-architecture) |
-| 2.6 | Docker Communication by trigger | [2.13 Docker Communication by trigger](#213-docker-communication-by-trigger) |
-| 2.7 | Docker Communication by protocol | [2.14 Docker Communication by protocol](#214-docker-communication-by-protocol) |
-| 4.1 | Project Status | [4.5 Project Status](#45-project-status) |
-| 4.2 | Project Roadmap | [4.6 Project Roadmap](#46-project-roadmap) |
-| 4.3 | Repository Responsibilities | [4.7 Repository Responsibilities](#47-repository-responsibilities) |
+| 2.1 | Application Services | [2.4 Application Services](docs/architecture.md#24-application-services) |
+| 2.2 | Infrastructure Services | [2.5 Infrastructure Services](docs/architecture.md#25-infrastructure-services) |
+| 2.3 | Technology Stack | [2.7 Technology Stack](docs/architecture.md#27-technology-stack) |
+| 2.4 | Running Services | [2.8 Running Services](docs/architecture.md#28-running-services) |
+| 2.5 | Docker Architecture | [2.12 Docker Architecture](docs/architecture.md#212-docker-architecture) |
+| 2.6 | Docker Communication by Trigger | [2.13 Docker Communication by Trigger](docs/architecture.md#213-docker-communication-by-trigger) |
+| 2.7 | Docker Communication by Protocol | [2.14 Docker Communication by Protocol](docs/architecture.md#214-docker-communication-by-protocol) |
+| 4.1 | Project Status | [4.5 Project Status](docs/development-process.md#45-project-status) |
+| 4.2 | Project Roadmap | [4.6 Project Roadmap](docs/development-process.md#46-project-roadmap) |
+| 4.3 | Repository Responsibilities | [4.7 Repository Responsibilities](docs/development-process.md#47-repository-responsibilities) |
