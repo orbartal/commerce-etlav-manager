@@ -99,13 +99,13 @@ Table of Contents for the entire documentation, including `README.md` and all do
 ### Project Documentation
 
 - [1. Project Goals](docs/goals.md#1-project-goals)
-  - [1.1 Project Purpose](docs/goals.md#11-project-purpose)
-  - [1.2 Project Objectives](docs/goals.md#12-project-objectives)
+  - [1.1 Project Description](docs/goals.md#11-project-description)
+  - [1.2 Project Demonstrates](docs/goals.md#12-project-demonstrates)
   - [1.3 Project Scope](docs/goals.md#13-project-scope)
-  - [1.4 Target Audience](docs/goals.md#14-target-audience)
-  - [1.5 Project Constraints](docs/goals.md#15-project-constraints)
-  - [1.6 Project Deliverables](docs/goals.md#16-project-deliverables)
-  - [1.7 Success Criteria](docs/goals.md#17-success-criteria)
+  - [1.4 Security Scope](docs/goals.md#14-security-scope)
+  - [1.5 Structured Analytics](docs/goals.md#15-structured-analytics)
+  - [1.6 AI/ML Analysis](docs/goals.md#16-aiml-analysis)
+  - [1.7 Combined Analysis](docs/goals.md#17-combined-analysis)
 
 - [2. Project Architecture](docs/architecture.md#2-project-architecture)
   - [2.1 Data Flow](docs/architecture.md#21-data-flow)
