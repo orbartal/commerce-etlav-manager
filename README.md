@@ -102,7 +102,7 @@ Table of Contents for the entire documentation, including `README.md` and all do
   - [Reviewer / Interviewer](#reviewer--interviewer)
   - [Demo User](#demo-user)
   - [Developer](#developer)
-- [Contents](#table-of-content)
+- [Table of Contents](#table-of-contents)
 - [Diagram Index](#diagram-index)
 - [Table Index](#table-index)
 
@@ -142,7 +142,7 @@ Table of Contents for the entire documentation, including `README.md` and all do
     - [Diagram 2.7 — Docker Communication by Protocol](#diagram-27--docker-communication-by-protocol)
     - [Diagram 2.7 Color Legend](#diagram-27-color-legend)
     - [Communication Notes](#communication-notes)
- - [2.15 Microservices Architecture](#215-microservices-architecture)
+  - [2.15 Microservices Architecture](#215-microservices-architecture)
     - [Diagram 2.8 — Microservices Architecture](#diagram-28--microservices-architecture)
     - [Diagram 2.8 Color Legend](#diagram-28-color-legend)
 
@@ -185,6 +185,7 @@ Table of Contents for the entire documentation, including `README.md` and all do
 | 2.5 | Docker Architecture | [2.12 Docker Architecture](#212-docker-architecture) |
 | 2.6 | Docker Communication by Trigger | [2.13 Docker Communication Trigger](#213-docker-communication-by-trigger) |
 | 2.7 | Docker Communication by protocol | [2.14 Docker Communication Protocol](#214-docker-communication-by-protocol) |
+| 2.8 | Microservices Architecture | [2.15 Microservices Architecture](#diagram-28--microservices-architecture) |
 | 3.1 | Test Flow | [3.9 Running Tests](#39-running-tests) |
 | 4.1 | Development Lifecycle | [4.2 Development Lifecycle](#42-development-lifecycle) |
 | 4.2 | Tenant Test Flow | [4.4 Testing Strategy](#44-testing-strategy) |
