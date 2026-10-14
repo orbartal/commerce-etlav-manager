@@ -11,6 +11,7 @@ It covers streaming, ingestion, storage, transformation, structured analysis, AI
 > **Project Status:** Planning / Initial Development
 
 ## Main Readme Overview
+
 - [Project Architecture](#project-architecture)
 - [Project Documentation](#project-documentation)
 - [Executive Summary](#executive-summary)
@@ -96,8 +97,6 @@ Recommended reading:
 
 Table of Contents for the entire documentation, including `README.md` and all documents in the `docs` folder. 
 
-### Project Documentation
-
 - [1. Project Goals](docs/goals.md#1-project-goals)
   - [1.1 Project Description](docs/goals.md#11-project-description)
   - [1.2 Project Demonstrates](docs/goals.md#12-project-demonstrates)
@@ -160,7 +159,7 @@ Table of Contents for the entire documentation, including `README.md` and all do
 | 2.5 | Docker Architecture | [2.12 Docker Architecture](docs/architecture.md#212-docker-architecture) |
 | 2.6 | Docker Communication by Trigger | [2.13 Docker Communication by Trigger](docs/architecture.md#213-docker-communication-by-trigger) |
 | 2.7 | Docker Communication by Protocol | [2.14 Docker Communication by Protocol](docs/architecture.md#214-docker-communication-by-protocol) |
-| 2.8 | Microservices Architecture | [Diagram 2.8](docs/architecture.md#diagram-28--microservices-architecture) |
+| 2.8 | Microservices Architecture | [2.15 Microservices Architecture](docs/architecture.md#diagram-28--microservices-architecture) |
 | 3.1 | Test Flow | [3.9 Running Tests](docs/user-guide.md#39-running-tests) |
 | 4.1 | Development Lifecycle | [4.2 Development Lifecycle](docs/development-process.md#42-development-lifecycle) |
 | 4.2 | Tenant Test Flow | [4.4 Testing Strategy](docs/development-process.md#44-testing-strategy) |
@@ -177,6 +176,7 @@ Table of Contents for the entire documentation, including `README.md` and all do
 | 2.5 | Docker Architecture | [2.12 Docker Architecture](docs/architecture.md#212-docker-architecture) |
 | 2.6 | Docker Communication by Trigger | [2.13 Docker Communication by Trigger](docs/architecture.md#213-docker-communication-by-trigger) |
 | 2.7 | Docker Communication by Protocol | [2.14 Docker Communication by Protocol](docs/architecture.md#214-docker-communication-by-protocol) |
+| 2.8 | Microservices Architecture | [2.15 Microservices Architecture](docs/architecture.md#215-microservices-architecture) |
 | 4.1 | Project Status | [4.5 Project Status](docs/development-process.md#45-project-status) |
 | 4.2 | Project Roadmap | [4.6 Project Roadmap](docs/development-process.md#46-project-roadmap) |
 | 4.3 | Repository Responsibilities | [4.7 Repository Responsibilities](docs/development-process.md#47-repository-responsibilities) |
