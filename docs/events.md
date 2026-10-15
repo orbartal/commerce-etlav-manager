@@ -246,8 +246,9 @@ An event passes through multiple stages.
 | 8 | Raw event is persisted | MinIO | `storedAt` |
 
 **Note:** In production, each timestep represents a distinct real-world step. \
-In our demo project, all events are defined in the Generator, so the first three timesteps are simulated. \
-The same Generator instance creates the events and defines these initial three timesteps.
+For the MVP, Generator simulates all five pre-Kafka stages: \
+the retailer's business activity, event recording, publication, and gateway receipt. \ 
+Generator also assigns the actual event sequence and publishes the resulting event to Kafka. \
 
 ### Timestamp Definitions
 
@@ -385,6 +386,8 @@ Example `ORDER_ITEM_ADDED` event:
   "channel": "ONLINE",
   "clientEventComment": "I need lightweight headphones for running.",
   "occurredAt": "2026-01-15T14:32:18.000Z",
+  "receivedAt": "2026-01-15T14:32:18.000Z",
+  "publishedAt": "2026-01-15T14:32:18.000Z",
   "recordedAt": "2026-01-15T14:32:18.100Z"
 }
 ```
