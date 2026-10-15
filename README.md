@@ -46,6 +46,8 @@ How to use CommerceETLAV by user type
 - [User Guide](docs/user-guide.md) — Installation, operations, analytics, and testing.
 - [Development Process](docs/development-process.md) — Principles, lifecycle, testing, and roadmap.
 - [Additional Documents](docs/additional-documents.md) — Documentation strategy and future plans.
+- [Business Model](docs/business.md) — Retail business model, actors, lifecycles, MVP scope, and business rules.
+- [Event Model](docs/events.md) — Event types, JSON schema, identity, ordering, timestamps, and Kafka integration.
 
 ## Table of Contents
 
@@ -101,6 +103,34 @@ Table of Contents for the entire documentation, including `README.md` and all do
   - [5.1 Documentation Strategy](docs/additional-documents.md#51-documentation-strategy)
   - [5.2 Documentation Evolution](docs/additional-documents.md#52-documentation-evolution)
   - [5.3 Planned Documents](docs/additional-documents.md#53-planned-documents)
+
+- [6. Business Model](docs/business.md#6-business-model)
+  - [6.1 Purpose](docs/business.md#61-purpose)
+  - [6.2 Business Model](docs/business.md#62-business-model)
+  - [6.3 Actors](docs/business.md#63-actors)
+  - [6.4 MVP Scope](docs/business.md#64-mvp-scope)
+  - [6.5 Retail Client Lifecycle](docs/business.md#65-retail-client-lifecycle)
+  - [6.6 Session Lifecycle](docs/business.md#66-session-lifecycle)
+  - [6.7 Order Lifecycle](docs/business.md#67-order-lifecycle)
+  - [6.8 Business Rules](docs/business.md#68-business-rules)
+  - [6.9 Data Generation](docs/business.md#69-data-generation)
+  - [6.10 Related Documents](docs/business.md#610-related-documents)
+
+- [7. Event Model](docs/events.md#7-event-model)
+  - [7.1 Purpose](docs/events.md#71-purpose)
+  - [7.2 Event Architecture](docs/events.md#72-event-architecture)
+  - [7.3 Event Identity and Ordering](docs/events.md#73-event-identity-and-ordering)
+  - [7.4 Event Lifecycle and Timestamps](docs/events.md#74-event-lifecycle-and-timestamps)
+  - [7.5 Event JSON Schema](docs/events.md#75-event-json-schema)
+  - [7.6 Event Types](docs/events.md#76-event-types)
+  - [7.7 Business Relationships](docs/events.md#77-business-relationships)
+  - [7.8 Client Event Comments](docs/events.md#78-client-event-comments)
+  - [7.9 Event Generation](docs/events.md#79-event-generation)
+  - [7.10 Kafka Integration](docs/events.md#710-kafka-integration)
+  - [7.11 Data Processing and Analytics](docs/events.md#711-data-processing-and-analytics)
+  - [7.12 MVP Assumptions](docs/events.md#712-mvp-assumptions)
+  - [7.13 Advanced Version](docs/events.md#713-advanced-version)
+  - [7.14 Related Documents](docs/events.md#714-related-documents) 
 
 ## Diagram Index
 
