@@ -245,6 +245,10 @@ An event passes through multiple stages.
 | 7 | Event is processed by Ingestor | Ingestor | `ingestedAt` |
 | 8 | Raw event is persisted | MinIO | `storedAt` |
 
+**Note:** In production, each timestep represents a distinct real-world step. \
+In our demo project, all events are defined in the Generator, so the first three timesteps are simulated. \
+The same Generator instance creates the events and defines these initial three timesteps.
+
 ### Timestamp Definitions
 
 | Field | Meaning | Owner |
@@ -326,8 +330,8 @@ Fields that do not apply to a specific event type may be `null` or omitted, acco
 |---|---|---|---|
 | `occurredAt` | String | Yes | Business action timestamp |
 | `recordedAt` | String | Yes | Retailer recording timestamp |
-| `publishedAt` | String | To define | Publication timestamp |
-| `receivedAt` | String | To define | Gateway receipt timestamp |
+| `publishedAt` | String | Yes | Publication timestamp |
+| `receivedAt` | String | Yes | Gateway receipt timestamp |
 | `ingestedAt` | String | No | Ingestor processing timestamp |
 | `storedAt` | String | No | Raw persistence timestamp |
 
