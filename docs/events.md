@@ -386,9 +386,9 @@ Example `ORDER_ITEM_ADDED` event:
   "channel": "ONLINE",
   "clientEventComment": "I need lightweight headphones for running.",
   "occurredAt": "2026-01-15T14:32:18.000Z",
-  "receivedAt": "2026-01-15T14:32:18.000Z",
+  "recordedAt": "2026-01-15T14:32:18.000Z",
   "publishedAt": "2026-01-15T14:32:18.000Z",
-  "recordedAt": "2026-01-15T14:32:18.100Z"
+  "receivedAt": "2026-01-15T14:32:18.100Z"
 }
 ```
 
