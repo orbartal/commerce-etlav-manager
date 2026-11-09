@@ -212,8 +212,9 @@ Note 2: Each application repository owns its application source code and Dockerf
 
 Infrastructure configuration and required infrastructure Dockerfiles are owned by `commerce-etlav-manager`.
 
-A few microservices use SQL DB, and each has its own dedicated PostgreSQL instance, which it exclusively owns.
-Thus, there are several independent PostgreSQL instances, one for each microservice that use SQL DB.
+A few microservices use SQL DB, and each has its own dedicated PostgreSQL instance, which it exclusively owns. \
+Thus, there are several independent PostgreSQL instances, one for each microservice that use SQL DB. \
+Microservices that use PostgreSQL: Tester, InfraGate, Airflow and Superset.
 
 Two additional Docker containers only initialize data/configuration and then exit. 
 This is their sole purpose; unlike the other containers, they do not continue running in production. 
@@ -299,7 +300,7 @@ The exact ports will be finalized during implementation.
 | 14 | Grafana | Monitor | Infrastructure — Grafana | HTTP / `localhost:<port>` | Displays operational dashboards |
 | 15 | Tester | Test | External test application | CLI / optional HTTP | Executes black-box E2E scenarios |
 | 16 | Iceberg Catalog | Catalog | Infrastructure — Iceberg REST Catalog | HTTP / `localhost:<port>` | Manages Iceberg table metadata |
-| 17 | PostgreSQL | Metadata | Infrastructure — PostgreSQL | PostgreSQL / `localhost:<port>` | Stores Airflow and Superset metadata |
+| 17 | PostgreSQL | Metadata | Infrastructure — PostgreSQL | PostgreSQL / `localhost:<port>` | DB for Tester, InfraGate, Airflow and Superset |
 | 18 | InfraGate | Test | Infrastructure adapter for Tester | `localhost:<port>` | Provide Rest API to Infrastructure |
 
 
@@ -415,7 +416,7 @@ The goals are:
 | 14 | `superset` | Apache Superset | Provide BI dashboards and SQL visualization |
 | 15 | `prometheus` | Prometheus | Collect and store application and infrastructure metrics |
 | 16 | `grafana` | Grafana | Provide operational monitoring dashboards |
-| 17 | `postgres` | PostgreSQL | Store metadata for Airflow and Superset |
+| 17 | `postgres` | PostgreSQL | DB for Tester, InfraGate, Airflow and Superset |
 | 18 | `airflow-init` | Airflow Initialization | Initialize and migrate the Airflow metadata database |
 | 19 | `minio-init` | MinIO Client | Initialize buckets and storage configuration |
 | 20 | `infra-gate` | Java | Provide Rest API of infra services to tester |
