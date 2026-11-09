@@ -767,7 +767,7 @@ flowchart TB
 |---|---|---|---|
 | 🔵 Blue | Application | 6 | continuously running containers |
 | ⚪ Gray | Infrastructure | 10 | continuously running containers |
-| 🟠 Orange  | Tester | 1 |  on-demand container |
+| 🟠 Orange  | Tester | 2 |  continuously running containers |
 | 🟢 Green | Initialization | 2 | one-time containers |
 
 Architecture Notes
@@ -778,6 +778,15 @@ Architecture Notes
 - Manager, Parquet files, and Iceberg tables are not separate containers.
 - The Analyzer-to-Spark connection represents the proposed architecture.
 - Prometheus connections show representative metrics targets, not every possible target.
+
+The architecture defines 20 primary Docker Compose services: 
+- 2 test services: Tester, InfraGate
+- 6 application services: Generator, Ingestor, Analyzer, Thinker, Presenter, Website 
+- 10 infrastructure services: Kafka, MinIO, Trino, Grafana, Prometheus, Superset, Spark, Iceberg, Airflow, PostgreSQL 
+- initialization services: airflow-init, minio-init
+
+Tester and InfraGate additionally require dedicated PostgreSQL instances that are not in the digaram. 
+Their database deployment is documented separately and is not included in this primary service inventory.
 
 
 ## 2.13 Docker Communication by Trigger
