@@ -668,6 +668,7 @@ flowchart TB
 
     subgraph TESTING["External Testing - On Demand"]
         tester["tester"]
+        infra_gate["infra_gate"]
     end
 
     %% ==========================================
@@ -753,7 +754,7 @@ flowchart TB
 
     class generator,ingestor,analyzer,thinker,presenter,website application
     class kafka,minio,spark,catalog,trino,airflow,superset,prometheus,grafana,postgres infrastructure
-    class tester testing
+    class tester,infra_gate testing
     class airflow_init,minio_init initialization
 ```
 
@@ -840,6 +841,7 @@ flowchart TB
 
     subgraph TESTING["External Testing - On Demand"]
         tester["tester"]
+        infra_gate["infra gate"]
     end
 
     %% ==========================================
@@ -918,7 +920,7 @@ flowchart TB
     class presenter,website,superset container
     class airflow,postgres container
     class prometheus,grafana container
-    class airflow_init,minio_init,tester container
+    class airflow_init,minio_init,tester,infra_gate container
 
     %% ==========================================
     %% EDGE COLORS - COMMUNICATION TRIGGERS
@@ -1035,6 +1037,7 @@ flowchart TB
 
     subgraph TESTING["External Testing - On Demand"]
         tester["tester"]
+        infra_gate["infra_gate"]
     end
 
     %% ==========================================
@@ -1109,7 +1112,7 @@ flowchart TB
     class presenter,website,superset container
     class airflow,postgres container
     class prometheus,grafana container
-    class airflow_init,minio_init,tester container
+    class airflow_init,minio_init,tester,infra_gate container
 
     %% ==========================================
     %% PROTOCOL EDGE COLORS
@@ -1181,6 +1184,7 @@ flowchart TB
     subgraph TESTING["External Testing (On Demand)"]
         direction LR
         tester["tester<br/>Internal"]
+        infra_gate["infra gate<br/>Internal"]
     end
 
     %% ==========================================
@@ -1323,7 +1327,7 @@ flowchart TB
     classDef internal fill:#e0f7e8,stroke:#777,color:#111
     classDef external fill:#dcecff,stroke:#777,color:#111
 
-    class generator,ingestor,analyzer,thinker,presenter,website,tester internal
+    class generator,ingestor,analyzer,thinker,presenter,website,tester,infra_gate internal
 
     class kafka,minio,spark,iceberg,trino,superset,airflow,postgres,prometheus,grafana,airflow_init,minio_init external
 
