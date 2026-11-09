@@ -186,7 +186,7 @@ The Tester remains outside the system boundary and validates the system as an ex
 | 6 | `commerce-etlav-presenter` | Gateway | Provides the public backend API and application gateway |
 | 7 | `commerce-etlav-website` | Visualization | Provides the user-facing web application |
 | 8 | `commerce-etlav-tester` | Testing | Performs external black-box E2E testing |
-| 9 | `commerce-etlav-infra-gateway` | InfraGate | Performs external black-box E2E testing |
+| 9 | `commerce-etlav-infra-gateway` | InfraGate | Provide Rest API to infrastructure for Tester |
 
 Note 1: commerce-etlav-manager isn't a docker or application running in production.
 Instead, it contains the docker-compose and every other resource and config that enable to run the entire project locally.
@@ -214,7 +214,7 @@ Infrastructure configuration and required infrastructure Dockerfiles are owned b
 
 A few microservices use SQL DB, and each has its own dedicated PostgreSQL instance, which it exclusively owns. \
 Thus, there are several independent PostgreSQL instances, one for each microservice that use SQL DB. \
-Microservices that use PostgreSQL: Tester, InfraGate, Airflow and Superset.
+Microservices that use PostgreSQL: Tester, InfraGate, Airflow and Superset (the last two share SQL instance).
 
 Two additional Docker containers only initialize data/configuration and then exit. 
 This is their sole purpose; unlike the other containers, they do not continue running in production. 
@@ -381,7 +381,7 @@ Free-text fields support semantic AI/ML analysis.
 
 CommerceETLAV uses Docker Compose to run the complete platform locally.
 
-The proposed final architecture contains **19 Docker containers**:
+The proposed final architecture contains **20 Docker containers**:
 
 - **7 application containers** — CommerceETLAV microservices, Website, and Tester.
 - **12 infrastructure containers** — third-party services, metadata storage, and initialization utilities.
@@ -473,7 +473,7 @@ The goals are:
    - Additional exporters or supporting services may be introduced if required.
 
 10. **Container Count**
-    - The 19-container architecture is a proposed final topology.
+    - The 20-container architecture is a proposed final topology.
     - The actual count may change as implementation decisions are finalized.
 
 ### Docker Communications
@@ -612,7 +612,7 @@ flowchart TB
 
     %% ==========================================
     %% COMMERCE ETLAV - DOCKER ARCHITECTURE
-    %% 19 containers
+    %% 20 containers
     %% ==========================================
 
     subgraph SYSTEM["CommerceETLAV - Docker Compose"]
@@ -786,7 +786,7 @@ flowchart TB
 
     %% ==========================================
     %% COMMERCE ETLAV - DOCKER COMMUNICATION
-    %% 19 containers, colored by trigger
+    %% 20 containers, colored by trigger
     %% ==========================================
 
     subgraph SYSTEM["CommerceETLAV - Docker Compose"]
@@ -954,7 +954,7 @@ flowchart TB
 
 
 #### Diagram Notes
-There are 32 communication links between the 19 Docker containers.
+There are 32 communication links between the 20 Docker containers.
 The colors represent the proposed primary trigger for each connection.
 One architectural detail is worth noting: Analyzer → Spark can also be initiated by a user request.
 Similarly, Spark → MinIO can occur during either scheduled or user-triggered processing.
@@ -970,7 +970,7 @@ If your GitHub renderer does not support them, we can use linkStyle with numbere
 
 ### Diagram 2.7 — Docker Communication by Protocol
 
-This diagram shows communication between the 19 Docker containers.
+This diagram shows communication between the 20 Docker containers.
 
 - All containers use the same neutral color.
 - Communication lines are colored by network protocol.
@@ -982,7 +982,7 @@ flowchart TB
 
     %% ==========================================
     %% COMMERCE ETLAV - DOCKER COMMUNICATION
-    %% 19 containers, 32 communication links
+    %% 20 containers, 32 communication links
     %% ==========================================
 
     subgraph SYSTEM["CommerceETLAV - Docker Compose"]
@@ -1169,7 +1169,7 @@ flowchart TB
 
 ### Diagram 2.8 — Microservices Architecture
 
-The diagram shows all 19 Docker containers as squares \
+The diagram shows all 20 Docker containers as squares \
 application services, infrastructure services, and initialization containers.
 
 Communication between containers is represented by lines and arrows.
