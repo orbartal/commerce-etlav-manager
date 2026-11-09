@@ -350,16 +350,25 @@ Example:
 
 ```json
 {
-  "eventId": "e-10042",
-  "timestamp": "2026-09-20T18:42:10Z",
-  "customerId": "c-104",
-  "productId": "p-42",
-  "sessionId": "s-992",
-  "eventType": "PRODUCT_REVIEW",
-  "country": "CA",
-  "price": 129.99,
-  "rating": 2,
-  "text": "Battery stopped charging after one week."
+  "schemaVersion": 1,
+  "eventId": "a7f00000-0000-4000-8000-000000000042",
+  "tenantId": "PBE",
+  "datasetId": "550e8400-e29b-41d4-a716-446655440000",
+  "eventSequence": 3,
+  "eventType": "ORDER_ITEM_ADDED",
+  "retailClientId": "CLIENT-001",
+  "sessionId": "SESSION-001",
+  "orderId": "ORDER-001",
+  "productId": "PRODUCT-042",
+  "quantity": 2,
+  "unitPrice": 129.99,
+  "currency": "USD",
+  "channel": "ONLINE",
+  "clientEventComment": "I need a reliable battery for my next trip.",
+  "occurredAt": "2026-09-20T18:42:10.000Z",
+  "recordedAt": "2026-09-20T18:42:10.000Z",
+  "publishedAt": "2026-09-20T18:42:10.000Z",
+  "receivedAt": "2026-09-20T18:42:10.100Z"
 }
 ```
 
