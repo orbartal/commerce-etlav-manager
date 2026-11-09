@@ -298,7 +298,7 @@ The exact ports will be finalized during implementation.
 | 12 | Airflow | Orchestrate | Infrastructure — Apache Airflow | HTTP / `localhost:<port>` | Coordinates data workflows |
 | 13 | Prometheus | Metrics | Infrastructure — Prometheus | HTTP / `localhost:<port>` | Collects operational metrics |
 | 14 | Grafana | Monitor | Infrastructure — Grafana | HTTP / `localhost:<port>` | Displays operational dashboards |
-| 15 | Tester | Test | External test application | CLI / optional HTTP | Executes black-box E2E scenarios |
+| 15 | Tester | Test | External test application | HTTP | Executes black-box E2E scenarios |
 | 16 | Iceberg Catalog | Catalog | Infrastructure — Iceberg REST Catalog | HTTP / `localhost:<port>` | Manages Iceberg table metadata |
 | 17 | PostgreSQL | Metadata | Infrastructure — PostgreSQL | PostgreSQL / `localhost:<port>` | DB for Tester, InfraGate, Airflow and Superset |
 | 18 | InfraGate | Test | Infrastructure adapter for Tester | `localhost:<port>` | Provide Rest API to Infrastructure |
@@ -341,8 +341,8 @@ The data model represents understandable commerce concepts such as:
 - Shopping carts.
 - Orders.
 - Purchases.
-- Returns.
-- Reviews.
+
+Future scope: Returns and Reviews.
 
 Events contain mostly structured fields and at least one optional free-text field.
 
