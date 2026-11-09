@@ -1178,6 +1178,11 @@ application services, infrastructure services, and initialization containers.
 Tester and InfraGate each have an internal SQL database embedded within their respective microservices. 
 These databases are not shown in the diagram.
 
+Tester runs as a REST service and executes E2E test tasks on demand. 
+Its PostgreSQL database persists scenarios, tasks, and reports.
+A test can be triggered through the Tester REST API or via a Maven command-line command.
+Each test execution runs on demand, while the Tester service runs continuously.
+
 Communication between containers is represented by lines and arrows.
 
 ```mermaid
