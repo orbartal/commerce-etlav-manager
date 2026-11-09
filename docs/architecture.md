@@ -186,6 +186,7 @@ The Tester remains outside the system boundary and validates the system as an ex
 | 6 | `commerce-etlav-presenter` | Gateway | Provides the public backend API and application gateway |
 | 7 | `commerce-etlav-website` | Visualization | Provides the user-facing web application |
 | 8 | `commerce-etlav-tester` | Testing | Performs external black-box E2E testing |
+| 9 | `commerce-etlav-infra-gateway` | InfraGate | Performs external black-box E2E testing |
 
 Note 1: commerce-etlav-manager isn't a docker or application running in production.
 Instead, it contains the docker-compose and every other resource and config that enable to run the entire project locally.
@@ -211,7 +212,10 @@ Note 2: Each application repository owns its application source code and Dockerf
 
 Infrastructure configuration and required infrastructure Dockerfiles are owned by `commerce-etlav-manager`.
 
-Note: Two additional Docker containers only initialize data/configuration and then exit. 
+A few microservices use SQL DB, and each has its own dedicated PostgreSQL instance, which it exclusively owns.
+Thus, there are several independent PostgreSQL instances, one for each microservice that use SQL DB.
+
+Two additional Docker containers only initialize data/configuration and then exit. 
 This is their sole purpose; unlike the other containers, they do not continue running in production. 
 They do not appear in either of the two tables, but they do appear in the Docker and Roles table.
 
@@ -296,6 +300,7 @@ The exact ports will be finalized during implementation.
 | 15 | Tester | Test | External test application | CLI / optional HTTP | Executes black-box E2E scenarios |
 | 16 | Iceberg Catalog | Catalog | Infrastructure — Iceberg REST Catalog | HTTP / `localhost:<port>` | Manages Iceberg table metadata |
 | 17 | PostgreSQL | Metadata | Infrastructure — PostgreSQL | PostgreSQL / `localhost:<port>` | Stores Airflow and Superset metadata |
+| 18 | InfraGate | Test | Infrastructure adapter for Tester | `localhost:<port>` | Provide Rest API to Infrastructure |
 
 
 ## 2.9 Security Boundary
@@ -413,6 +418,7 @@ The goals are:
 | 17 | `postgres` | PostgreSQL | Store metadata for Airflow and Superset |
 | 18 | `airflow-init` | Airflow Initialization | Initialize and migrate the Airflow metadata database |
 | 19 | `minio-init` | MinIO Client | Initialize buckets and storage configuration |
+| 20 | `infra-gate` | Java | Provide Rest API of infra services to tester |
 
 **Container Notes**
 
@@ -506,9 +512,10 @@ Only services that require access from a browser, developer machine, or external
 | 22 | Grafana | Prometheus | HTTP API | Query operational metrics |
 | 23 | Tester | Presenter | REST / HTTP | Execute public API E2E tests |
 | 24 | Tester | Generator | REST / HTTP | Test Generator before Presenter is implemented |
-| 25 | Tester | Website | HTTP / WebDriver | Execute browser-based E2E tests |
-| 26 | `airflow-init` | PostgreSQL | PostgreSQL TCP | Initialize the Airflow metadata database |
-| 27 | `minio-init` | MinIO | S3 API / HTTP | Create required storage buckets |
+| 25 | Tester | InfraGate | REST / HTTP | Read data from infrastructure services |
+| 26 | Tester | Website | HTTP / WebDriver | Execute browser-based E2E tests |
+| 27 | `airflow-init` | PostgreSQL | PostgreSQL TCP | Initialize the Airflow metadata database |
+| 28 | `minio-init` | MinIO | S3 API / HTTP | Create required storage buckets |
 
 **Communication Notes**
 
