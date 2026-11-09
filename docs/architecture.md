@@ -430,6 +430,9 @@ The goals are:
 | 19 | `minio-init` | MinIO Client | Initialize buckets and storage configuration |
 | 20 | `infra-gate` | Java | Provide Rest API of infra services to tester |
 
+Tester and InfraGate each have an internal SQL database embedded within their respective microservices. 
+These databases are not shown in the table.
+
 **Container Notes**
 
 1. **Manager Repository**
@@ -1171,6 +1174,9 @@ flowchart TB
 
 The diagram shows all 20 Docker containers as squares \
 application services, infrastructure services, and initialization containers.
+
+Tester and InfraGate each have an internal SQL database embedded within their respective microservices. 
+These databases are not shown in the diagram.
 
 Communication between containers is represented by lines and arrows.
 
